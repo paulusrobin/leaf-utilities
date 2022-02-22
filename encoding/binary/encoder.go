@@ -1,14 +1,7 @@
 package binary
 
-import (
-	"bytes"
-	"encoding/binary"
-)
+import "github.com/kelindar/binary"
 
-func MarshalBinary(v interface{}) (data []byte, err error) {
-	buf := new(bytes.Buffer)
-	if err := binary.Write(buf, binary.BigEndian, &v); err != nil {
-		return nil, err
-	}
-	return buf.Bytes(), nil
+func Marshal(v interface{}) (data []byte, err error) {
+	return binary.Marshal(v)
 }
