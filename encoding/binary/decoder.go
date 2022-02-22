@@ -6,5 +6,5 @@ import (
 )
 
 func UnmarshalBinary(data []byte, v interface{}) error {
-	return binary.Read(bytes.NewBuffer(data), binary.BigEndian, v)
+	return binary.Read(bytes.NewBuffer(data), binary.LittleEndian, v)
 }
