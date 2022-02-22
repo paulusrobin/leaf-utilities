@@ -7,7 +7,7 @@ import (
 
 func MarshalBinary(v interface{}) (data []byte, err error) {
 	buf := new(bytes.Buffer)
-	if err := binary.Write(buf, binary.LittleEndian, v); err != nil {
+	if err := binary.Write(buf, binary.BigEndian, &v); err != nil {
 		return nil, err
 	}
 	return buf.Bytes(), nil
