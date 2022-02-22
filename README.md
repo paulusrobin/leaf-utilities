@@ -1,5 +1,8 @@
 # Leaf-Utilities
 
+## Utilities Project
+Supporting utilities for [Leaf Framework](https://github.com/paulusrobin/leaf)
+
 ## TODO
 - [X] Encoding
     - [X] Binary
