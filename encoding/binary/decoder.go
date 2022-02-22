@@ -1,10 +1,9 @@
 package binary
 
 import (
-	"bytes"
-	"encoding/binary"
+	"github.com/kelindar/binary"
 )
 
-func UnmarshalBinary(data []byte, v interface{}) error {
-	return binary.Read(bytes.NewBuffer(data), binary.BigEndian, &v)
+func Unmarshal(data []byte, v interface{}) error {
+	return binary.Unmarshal(data, v)
 }
