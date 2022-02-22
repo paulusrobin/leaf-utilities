@@ -18,9 +18,9 @@ Create config struct
 type (
     AppConfig struct {
         // - Interface Setting
-		HttpEnable      bool `envconfig:"INTERFACE_HTTP_ENABLE" default:"true"`
-		MessagingEnable bool `envconfig:"INTERFACE_MESSAGING_ENABLE" default:"true"`
-		WorkerEnable    bool `envconfig:"INTERFACE_WORKER_ENABLE" default:"true"`
+        HttpEnable      bool `envconfig:"INTERFACE_HTTP_ENABLE" default:"true"`
+        MessagingEnable bool `envconfig:"INTERFACE_MESSAGING_ENABLE" default:"true"`
+        WorkerEnable    bool `envconfig:"INTERFACE_WORKER_ENABLE" default:"true"`
     }
 )
 ```
