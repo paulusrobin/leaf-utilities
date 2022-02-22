@@ -5,7 +5,7 @@ Supporting utilities for [Leaf Framework](https://github.com/paulusrobin/leaf)
 
 ## TODO
 - [X] [Config](https://github.com/paulusrobin/leaf-utilities/tree/main/config)
-- [X] [Encoding](https://github.com/paulusrobin/leaf-utilities/tree/main/encoding)
+- [X] Encoding
     - [X] [Binary](https://github.com/paulusrobin/leaf-utilities/tree/main/encoding/binary)
     - [X] [Json](https://github.com/paulusrobin/leaf-utilities/tree/main/encoding/json)
 - [X] [Mandatory](https://github.com/paulusrobin/leaf-utilities/tree/main/mandatory)
