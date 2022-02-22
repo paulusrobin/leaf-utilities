@@ -24,7 +24,7 @@ type (
     }
 )
 ```
-Retrieve environtment variable to struct
+Retrieve environment variable to struct
 ```go
 configuration := AppConfig{}
 if err := leafConfig.NewFromEnv(&configuration); err != nil {
