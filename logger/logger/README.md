@@ -4,10 +4,10 @@
 Logger interface for support leaf framework
 ```go
 Logger interface {
-    Info(message StandardMessage)
-    Warn(message StandardMessage)
-    Error(message StandardMessage)
-    Debug(message StandardMessage)
+    Info(message Message)
+    Warn(message Message)
+    Error(message Message)
+    Debug(message Message)
     StandardLogger() StandardLogger
 }
 
