@@ -10,9 +10,9 @@ Supporting utilities for [Leaf Framework](https://github.com/paulusrobin/leaf)
     - [X] [Json](https://github.com/paulusrobin/leaf-utilities/tree/main/encoding/json)
 - [X] [Mandatory](https://github.com/paulusrobin/leaf-utilities/tree/main/mandatory)
 - [X] [Time](https://github.com/paulusrobin/leaf-utilities/tree/main/time)
-- [X] Logging
-    - [ ] Uber Zap
-    - [ ] Logrus
+- [X] [Logging](https://github.com/paulusrobin/leaf-utilities/tree/logger/logger)
+    - [X] [Uber Zap](https://github.com/paulusrobin/leaf-utilities/tree/logger/zap)
+    - [X] [Logrus](https://github.com/paulusrobin/leaf-utilities/tree/logger/logrus)
 - [ ] Message Queue
     - [ ] Kafka
     - [ ] Google Pub/Sub
@@ -25,13 +25,15 @@ Supporting utilities for [Leaf Framework](https://github.com/paulusrobin/leaf)
 - [ ] Cache
     - [ ] Redis
     - [ ] Memcache
-- [ ] Web Client
-    - [ ] Heimdall + Circuit Breaker
 - [ ] Application Runner
     - [ ] HTTP
     - [ ] gRPC
     - [ ] Messaging Queue
     - [ ] Worker
+- [ ] Web Client
+    - [ ] Heimdall + Circuit Breaker
+- [ ] gRPC Client
+    - [ ] 
  - [ ] Tracer
     - [ ] Elastic APM
     - [ ] Newrelic APM
