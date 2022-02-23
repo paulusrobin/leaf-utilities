@@ -10,7 +10,7 @@ Supporting utilities for [Leaf Framework](https://github.com/paulusrobin/leaf)
     - [X] [Json](https://github.com/paulusrobin/leaf-utilities/tree/main/encoding/json)
 - [X] [Mandatory](https://github.com/paulusrobin/leaf-utilities/tree/main/mandatory)
 - [X] [Time](https://github.com/paulusrobin/leaf-utilities/tree/main/time)
-- [ ] Logging
+- [X] Logging
     - [ ] Uber Zap
     - [ ] Logrus
 - [ ] Message Queue
