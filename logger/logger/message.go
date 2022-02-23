@@ -9,9 +9,9 @@ import (
 	"time"
 )
 
-type StandardMessage map[string]interface{}
+type Message map[string]interface{}
 
-func Message(ctx context.Context, msg string, opts ...MessageOption) StandardMessage {
+func BuildMessage(ctx context.Context, msg string, opts ...MessageOption) Message {
 	o := defaultOption()
 	for _, opt := range opts {
 		opt.Apply(&o)
@@ -47,17 +47,16 @@ func Message(ctx context.Context, msg string, opts ...MessageOption) StandardMes
 	return message
 }
 
-func (msg StandardMessage) MarshalJSON() ([]byte, error) {
+func (msg Message) MarshalJSON() ([]byte, error) {
 	return json.Marshal(msg)
 }
 
-func (msg StandardMessage) MarshalText() ([]byte, error) {
+func (msg Message) MarshalText() ([]byte, error) {
 	buffer := bytes.Buffer{}
 	buffer.WriteString(fmt.Sprintf("%v", msg))
 	return buffer.Bytes(), nil
 }
 
-func (msg StandardMessage) String() string {
+func (msg Message) String() string {
 	return msg["message"].(string)
 }
-
