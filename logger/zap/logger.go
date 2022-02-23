@@ -38,7 +38,7 @@ func (l logger) Debug(message leafLogger.Message) {
 	}
 }
 
-func (l logger) Logger() leafLogger.Logger {
+func (l logger) StandardLogger() leafLogger.StandardLogger {
 	return &l.logger
 }
 
