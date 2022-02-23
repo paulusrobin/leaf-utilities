@@ -7,10 +7,10 @@ import (
 
 type (
 	Logger interface {
-		Info(message StandardMessage)
-		Warn(message StandardMessage)
-		Error(message StandardMessage)
-		Debug(message StandardMessage)
+		Info(message Message)
+		Warn(message Message)
+		Error(message Message)
+		Debug(message Message)
 		StandardLogger() StandardLogger
 	}
 	StandardLogger interface {
