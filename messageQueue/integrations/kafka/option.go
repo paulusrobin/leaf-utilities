@@ -3,8 +3,8 @@ package leafKafka
 import (
 	"fmt"
 	"github.com/Shopify/sarama"
+	leafZap "github.com/paulusrobin/leaf-utilities/logger/integrations/zap"
 	leafLogger "github.com/paulusrobin/leaf-utilities/logger/logger"
-	leafZap "github.com/paulusrobin/leaf-utilities/logger/zap"
 	"time"
 )
 
