@@ -9,7 +9,7 @@ Import the package
 import (
     ...
     "github.com/paulusrobin/leaf-utilities/logger/logger"
-    "github.com/paulusrobin/leaf-utilities/logger/zap"
+    "github.com/paulusrobin/leaf-utilities/logger/integrations/zap"
     ...
 )
 ```
