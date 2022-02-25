@@ -1,4 +1,4 @@
-module github.com/paulusrobin/leaf-utilities/messagingQueue/kafka
+module github.com/paulusrobin/leaf-utilities/messagingQueue/integrations/kafka
 
 go 1.16
 

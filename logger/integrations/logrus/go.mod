@@ -1,4 +1,4 @@
-module github.com/paulusrobin/leaf-utilities/logger/logrus
+module github.com/paulusrobin/leaf-utilities/logger/integrations/logrus
 
 go 1.16
 
