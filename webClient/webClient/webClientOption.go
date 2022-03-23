@@ -14,18 +14,18 @@ type WebClientOption struct {
 }
 
 func NewDefaultWebClientOption(timeout time.Duration) Option {
-	return WithTimeout(timeout)
+	return withTimeout(timeout)
 }
 
 func NewWebClientOptionWithRetry(timeout time.Duration, retryCount int) []Option {
-	return []Option{WithTimeout(timeout), WithRetryCount(retryCount)}
+	return []Option{withTimeout(timeout), withRetryCount(retryCount)}
 }
 
 func NewWebClientOptionWithCircuitBreaker(opts ...leafCircuitBreaker.Option) Option {
-	return WithCircuitBreaker(opts...)
+	return withCircuitBreaker(opts...)
 }
 
-func WithTimeout(timeout time.Duration) Option {
+func withTimeout(timeout time.Duration) Option {
 	return func(wc *WebClientOption) {
 		wc.timeout = timeout
 	}
@@ -35,7 +35,7 @@ func (wc *WebClientOption) GetTimeout() time.Duration {
 	return wc.timeout
 }
 
-func WithRetryCount(retryCount int) Option {
+func withRetryCount(retryCount int) Option {
 	return func(wc *WebClientOption) {
 		wc.retryCount = retryCount
 	}
@@ -45,7 +45,7 @@ func (wc *WebClientOption) GetRetryCount() int {
 	return wc.retryCount
 }
 
-func WithCircuitBreaker(opts ...leafCircuitBreaker.Option) Option {
+func withCircuitBreaker(opts ...leafCircuitBreaker.Option) Option {
 	return func(wc *WebClientOption) {
 		wc.circuitBreaker = func() []leafCircuitBreaker.Option {
 			return opts
