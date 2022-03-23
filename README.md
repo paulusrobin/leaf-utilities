@@ -30,8 +30,8 @@ Supporting utilities for [Leaf Framework](https://github.com/paulusrobin/leaf)
     - [ ] gRPC
     - [ ] Messaging Queue
     - [ ] Worker
-- [ ] Web Client
-    - [ ] Heimdall + Circuit Breaker
+- [x] Web Client
+    - [x] Heimdall + Circuit Breaker
 - [ ] gRPC Client
     - [ ] 
  - [ ] Tracer
