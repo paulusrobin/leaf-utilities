@@ -1,10 +1,10 @@
 package leafHeimdall
 
 import (
+	leafWebClient "github.com/enricodg/leaf-utilities/webClient/webClient"
+	leafCircuitBreaker "github.com/enricodg/leaf-utilities/webClient/webClient/circuitBreaker"
 	"github.com/gojek/heimdall/v7/httpclient"
 	"github.com/gojek/heimdall/v7/hystrix"
-	leafWebClient "github.com/paulusrobin/leaf-utilities/webClient/webClient"
-	leafCircuitBreaker "github.com/paulusrobin/leaf-utilities/webClient/webClient/circuitBreaker"
 	"time"
 )
 
@@ -68,7 +68,7 @@ func (cf *webClientFactory) Create(opts ...leafWebClient.Option) leafWebClient.W
 		}
 
 		return &WebClient{
-			HystrixDoer: *hystrix.NewClient(options...),
+			HystrixDoer:          *hystrix.NewClient(options...),
 			EnableCircuitBreaker: true,
 		}
 	}
