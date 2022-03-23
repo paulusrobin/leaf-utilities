@@ -1,8 +1,8 @@
 package leafHeimdall
 
 import (
+	leafWebClient "github.com/enricodg/leaf-utilities/webClient/webClient"
 	"github.com/gojek/heimdall/v7"
-	leafWebClient "github.com/paulusrobin/leaf-utilities/webClient/webClient/circuitBreaker"
 )
 
 func convertToHeimdallRetryBackoff(retryBackoff leafWebClient.RetryBackoffOption) heimdall.Retriable {
