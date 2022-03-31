@@ -1,4 +1,4 @@
-module github.com/enricodg/leaf-utilities/database/sql/gorm
+module github.com/enricodg/leaf-utilities/database/sql/integrations/gorm
 
 go 1.16
 
