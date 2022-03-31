@@ -9,6 +9,7 @@ import (
 type (
 	Impl struct {
 		GormDB       *gorm.DB
+		GormDBDryRun *gorm.DB
 		Log          leafLogger.Logger
 		DatabaseName string
 		//DataStoreProduct newrelic.DatastoreProduct
@@ -47,5 +48,5 @@ func (i *Impl) Association(column string) *gorm.Association {
 	return i.GormDB.Association(column)
 }
 func (i *Impl) Statement() *gorm.Statement {
-	return i.GormDB.Statement
+	return i.GormDBDryRun.Statement
 }

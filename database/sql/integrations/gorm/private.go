@@ -11,6 +11,7 @@ import (
 func (i *Impl) newImpl(db *gorm.DB) *Impl {
 	return &Impl{
 		GormDB:       db,
+		GormDBDryRun: db.Session(&gorm.Session{DryRun: true}),
 		Log:          i.Log,
 		DatabaseName: i.DatabaseName,
 		//DataStoreProduct: i.DataStoreProduct,
