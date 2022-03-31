@@ -1,4 +1,4 @@
-module sql
+module github.com/paulusrobin/leaf-utilities/database/sql/sql
 
 go 1.16
 
