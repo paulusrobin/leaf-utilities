@@ -1,4 +1,4 @@
-package leafWebClient
+package leafCircuitBreaker
 
 import "time"
 

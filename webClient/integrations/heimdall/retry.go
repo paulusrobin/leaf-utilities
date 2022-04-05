@@ -1,9 +1,8 @@
-// Implementation taken from Heimdall
-package leafHystrix
+package leafHeimdall
 
 import (
+	leafWebClient "github.com/enricodg/leaf-utilities/webClient/webClient"
 	"github.com/gojek/heimdall/v7"
-	leafWebClient "github.com/paulusrobin/leaf-utilities/webClient/webClient"
 )
 
 func convertToHeimdallRetryBackoff(retryBackoff leafWebClient.RetryBackoffOption) heimdall.Retriable {

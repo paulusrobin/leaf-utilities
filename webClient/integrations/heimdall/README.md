@@ -10,8 +10,8 @@ factory := leafHeimdall.NewClientFactory()
 
 - #### Initialize Web Client Instance
 ```go
-webClient := factory.Create(time.Second)
-webClientRetry := factory.CreateWithRetry(time.Second, 2)
+webClient := factory.Create(leafWebClient.NewDefaultWebClientOption(time.Second))
+webClientRetry := factory.Create(leafWebClient.NewWebClientOptionWithRetry(time.Second, 3)...)
 ```
 
 - #### GET Request Example
@@ -63,8 +63,11 @@ factory := leafHystrix.NewClientFactory()
 
 - #### Initialize Web Client Instance
 ```go
-webClient := factory.Create(
-	leafWebClient.WithCommandName("command-name"))
+webClient := w.resource.LeafWebClientFactory.Create(leafWebClient.NewWebClientOptionWithCircuitBreaker(
+    leafCircuitBreaker.WithRetryCount(3),
+    leafCircuitBreaker.WithRetryBackoffOption(*leafCircuitBreaker.NewConstantRetryBackoff(time.Second, 2)), 
+	... // add other options here
+))
 ```
 
 - #### GET Request Example
