@@ -20,8 +20,8 @@ Supporting utilities for [Leaf Framework](https://github.com/paulusrobin/leaf)
     - [x] [SQL](database/sql)
         - [x] [MySQL](database/sql/integrations/gorm/mysql)
         - [x] [Postgres](database/sql/integrations/gorm/postgresql)
-    - [ ] NoSQL
-        - [ ] MongoDB
+    - [x] [NoSQL](database/nosql/nosql)
+        - [x] MongoDB
 - [x] [Cache](cache/cache)
     - [x] [Redis](cache/integrations/redis)
     - [x] [Memcache](cache/integrations/memcache)
