@@ -13,15 +13,15 @@ Supporting utilities for [Leaf Framework](https://github.com/paulusrobin/leaf)
 - [X] [Logging](https://github.com/paulusrobin/leaf-utilities/tree/logger/logger)
     - [X] [Uber Zap](https://github.com/paulusrobin/leaf-utilities/tree/logger/zap)
     - [X] [Logrus](https://github.com/paulusrobin/leaf-utilities/tree/logger/logrus)
-- [ ] Message Queue
-    - [ ] Kafka
+- [x] [Message Queue](messageQueue/messageQueue)
+    - [x] [Kafka](messageQueue/integrations/kafka)
     - [ ] Google Pub/Sub
 - [x] [Database](database)
     - [x] [SQL](database/sql)
         - [x] [MySQL](database/sql/integrations/gorm/mysql)
         - [x] [Postgres](database/sql/integrations/gorm/postgresql)
     - [x] [NoSQL](database/nosql/nosql)
-        - [x] MongoDB
+        - [x] [MongoDB](database/nosql/integrations/gomongo)
 - [x] [Cache](cache/cache)
     - [x] [Redis](cache/integrations/redis)
     - [x] [Memcache](cache/integrations/memcache)
