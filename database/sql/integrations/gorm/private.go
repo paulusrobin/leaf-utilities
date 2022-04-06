@@ -1,6 +1,7 @@
 package leafGorm
 
 import (
+	"context"
 	"errors"
 	leafSql "github.com/enricodg/leaf-utilities/database/sql/sql"
 	"gorm.io/gorm"
@@ -98,27 +99,6 @@ func (i Impl) interfaceSlice(items interface{}) ([]interface{}, error) {
 	}
 }
 
-//func (i Impl) startDatastoreSegment(ctx *context.Context, operation string, statement *gorm.Statement) taniTracer.Span {
-//	var span taniTracer.Span
-//	span, *ctx = tracer.StartSpanFromContext(*ctx, operation,
-//		taniNewRelicTracer.WithSpanType(taniNewRelicSpanType.DataStore),
-//		taniNewRelicTracer.WithDataStore(taniNewRelicTracer.DataStoreOption{
-//			Collection:         statement.Table,
-//			DatabaseName:       i.DatabaseName,
-//			Operation:          operation,
-//			ParameterizedQuery: statement.SQL.String(),
-//			QueryParameters:    statement.Vars,
-//			DatastoreProduct:   i.DataStoreProduct,
-//		}),
-//		taniSentryTracer.WithSpanType(taniSentrySpanType.DataStore),
-//		taniSentryTracer.WithDataStore(taniSentryTracer.DataStoreOption{
-//			Collection:         statement.Table,
-//			DatabaseName:       i.DatabaseName,
-//			Operation:          operation,
-//			ParameterizedQuery: statement.SQL.String(),
-//			QueryParameters:    statement.Vars,
-//			DatastoreProduct:   string(i.DataStoreProduct),
-//		}),
-//	)
-//	return span
-//}
+func (i Impl) startDatastoreSegment(ctx *context.Context, operation string, statement *gorm.Statement) {
+
+}
