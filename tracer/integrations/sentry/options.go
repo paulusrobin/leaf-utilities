@@ -1,6 +1,7 @@
-package sentry
+package leafSentryTracer
 
 import (
+	"github.com/getsentry/sentry-go"
 	leafTime "github.com/paulusrobin/leaf-utilities/time"
 	"github.com/paulusrobin/leaf-utilities/tracer/integrations/sentry/ext"
 	"github.com/paulusrobin/leaf-utilities/tracer/integrations/sentry/messageDestinationType"

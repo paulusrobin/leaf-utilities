@@ -1,4 +1,4 @@
-package sentry
+package leafSentryTracer
 
 import (
 	"github.com/getsentry/sentry-go"
