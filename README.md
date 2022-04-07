@@ -15,7 +15,7 @@ Supporting utilities for [Leaf Framework](https://github.com/paulusrobin/leaf)
     - [X] [Logrus](https://github.com/paulusrobin/leaf-utilities/tree/logger/logrus)
 - [x] [Message Queue](messageQueue/messageQueue)
     - [x] [Kafka](messageQueue/integrations/kafka)
-    - [ ] Google Pub/Sub
+    - [x] [Google Pub/Sub](messageQueue/integrations/googlePubsub)
 - [x] [Database](database)
     - [x] [SQL](database/sql)
         - [x] [MySQL](database/sql/integrations/gorm/mysql)
