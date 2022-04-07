@@ -2,17 +2,18 @@ package leafGorm
 
 import (
 	"context"
+	"github.com/newrelic/go-agent/v3/newrelic"
 	leafLogger "github.com/paulusrobin/leaf-utilities/logger/logger"
 	"gorm.io/gorm"
 )
 
 type (
 	Impl struct {
-		GormDB       *gorm.DB
-		GormDBDryRun *gorm.DB
-		Log          leafLogger.Logger
-		DatabaseName string
-		//DataStoreProduct newrelic.DatastoreProduct
+		GormDB           *gorm.DB
+		GormDBDryRun     *gorm.DB
+		Log              leafLogger.Logger
+		DatabaseName     string
+		DataStoreProduct newrelic.DatastoreProduct
 	}
 )
 

@@ -12,49 +12,49 @@ import (
 
 // Create insert the value into database
 func (i *Impl) Create(ctx context.Context, value interface{}) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "CREATE", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "CREATE", i.Statement())
 	db := i.GormDB.Create(value)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 // Save update value in database, if the value doesn't have primary key, will insert it
 func (i *Impl) Save(ctx context.Context, value interface{}) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "SAVE", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "SAVE", i.Statement())
 	db := i.GormDB.Save(value)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 // First find first record that match given conditions, order by primary key
 func (i *Impl) First(ctx context.Context, dest interface{}, conds ...interface{}) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "FIRST", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "FIRST", i.Statement())
 	db := i.GormDB.First(dest, conds...)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 // Take return a record that match given conditions, the order will depend on the database implementation
 func (i *Impl) Take(ctx context.Context, dest interface{}, conds ...interface{}) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "TAKE", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "TAKE", i.Statement())
 	db := i.GormDB.Take(dest, conds...)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 // Last find last record that match given conditions, order by primary key
 func (i *Impl) Last(ctx context.Context, dest interface{}, conds ...interface{}) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "LAST", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "LAST", i.Statement())
 	db := i.GormDB.Last(dest, conds...)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 // Find find records that match given conditions
 func (i *Impl) Find(ctx context.Context, dest interface{}, conds ...interface{}) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "FIND", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "FIND", i.Statement())
 	db := i.GormDB.Find(dest, conds...)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
@@ -64,68 +64,68 @@ func (i *Impl) FindInBatches(ctx context.Context, dest interface{}, batchSize in
 		return fc(i, batchSize)
 	}
 
-	// span := i.startDatastoreSegment(&ctx, "FIND_IN_BATCHES", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "FIND_IN_BATCHES", i.Statement())
 	db := i.GormDB.FindInBatches(dest, batchSize, nfc)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 func (i *Impl) FirstOrInit(ctx context.Context, dest interface{}, conds ...interface{}) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "FIRST_OR_INIT", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "FIRST_OR_INIT", i.Statement())
 	db := i.GormDB.FirstOrInit(dest, conds...)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 func (i *Impl) FirstOrCreate(ctx context.Context, dest interface{}, conds ...interface{}) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "FIRST_OR_CREATE", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "FIRST_OR_CREATE", i.Statement())
 	db := i.GormDB.FirstOrCreate(dest, conds...)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 // Update update attributes with callbacks, refer: https://gorm.io/docs/update.html#Update-Changed-Fields
 func (i *Impl) Update(ctx context.Context, column string, value interface{}) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "UPDATE", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "UPDATE", i.Statement())
 	db := i.GormDB.Update(column, value)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 // Updates update attributes with callbacks, refer: https://gorm.io/docs/update.html#Update-Changed-Fields
 func (i *Impl) Updates(ctx context.Context, values interface{}) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "UPDATES", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "UPDATES", i.Statement())
 	db := i.GormDB.Updates(values)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 func (i *Impl) UpdateColumn(ctx context.Context, column string, value interface{}) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "UPDATE_COLUMN", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "UPDATE_COLUMN", i.Statement())
 	db := i.GormDB.UpdateColumn(column, value)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 func (i *Impl) UpdateColumns(ctx context.Context, values interface{}) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "UPDATE_COLUMNS", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "UPDATE_COLUMNS", i.Statement())
 	db := i.GormDB.UpdateColumns(values)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 // Delete delete value match given conditions, if the value has primary key, then will including the primary key as condition
 func (i *Impl) Delete(ctx context.Context, value interface{}, conds ...interface{}) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "DELETE", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "DELETE", i.Statement())
 	db := i.GormDB.Delete(value, conds...)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 func (i *Impl) Count(ctx context.Context, count *int64) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "COUNT", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "COUNT", i.Statement())
 	db := i.GormDB.Count(count)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
@@ -140,9 +140,9 @@ func (i *Impl) Rows(ctx context.Context) (*sql.Rows, error) {
 
 // Scan scan value to a struct
 func (i *Impl) Scan(ctx context.Context, dest interface{}) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "SCAN", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "SCAN", i.Statement())
 	db := i.GormDB.Scan(dest)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
@@ -150,9 +150,9 @@ func (i *Impl) Scan(ctx context.Context, dest interface{}) leafSql.ORM {
 //     var ages []int64
 //     db.Find(&users).Pluck("age", &ages)
 func (i *Impl) Pluck(ctx context.Context, column string, dest interface{}) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "PLUCK", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "PLUCK", i.Statement())
 	db := i.GormDB.Pluck(column, dest)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
@@ -170,47 +170,47 @@ func (i *Impl) Transaction(ctx context.Context, fc func(leafSql.ORM) error, opts
 
 // Begin begins a transaction
 func (i *Impl) Begin(ctx context.Context, opts ...*sql.TxOptions) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "BEGIN", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "BEGIN", i.Statement())
 	db := i.GormDB.Begin(opts...)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 // Commit commit a transaction
 func (i *Impl) Commit(ctx context.Context) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "COMMIT", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "COMMIT", i.Statement())
 	db := i.GormDB.Commit()
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 // Rollback rollback a transaction
 func (i *Impl) Rollback(ctx context.Context) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "ROLLBACK", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "ROLLBACK", i.Statement())
 	db := i.GormDB.Rollback()
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 func (i *Impl) SavePoint(ctx context.Context, name string) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "SAVE_POINT", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "SAVE_POINT", i.Statement())
 	db := i.GormDB.SavePoint(name)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 func (i *Impl) RollbackTo(ctx context.Context, name string) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "ROLLBACK_TO", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "ROLLBACK_TO", i.Statement())
 	db := i.GormDB.RollbackTo(name)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 
 // Exec execute raw sql
 func (i *Impl) Exec(ctx context.Context, sql string, values ...interface{}) leafSql.ORM {
-	// span := i.startDatastoreSegment(&ctx, "EXEC", i.Statement())
+	span := i.startDatastoreSegment(&ctx, "EXEC", i.Statement())
 	db := i.GormDB.Exec(sql, values...)
-	// span.Finish()
+	span.Finish()
 	return i.newImpl(db)
 }
 

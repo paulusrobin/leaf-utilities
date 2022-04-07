@@ -4,6 +4,10 @@ import (
 	"context"
 	"errors"
 	leafSql "github.com/enricodg/leaf-utilities/database/sql/sql"
+	leafSentryTracer "github.com/paulusrobin/leaf-utilities/tracer/integrations/sentry"
+	leafSentrySpanType "github.com/paulusrobin/leaf-utilities/tracer/integrations/sentry/spanType"
+	leafTracer "github.com/paulusrobin/leaf-utilities/tracer/tracer"
+	"github.com/paulusrobin/leaf-utilities/tracer/tracer/tracer"
 	"gorm.io/gorm"
 	"reflect"
 	"strings"
@@ -99,6 +103,27 @@ func (i Impl) interfaceSlice(items interface{}) ([]interface{}, error) {
 	}
 }
 
-func (i Impl) startDatastoreSegment(ctx *context.Context, operation string, statement *gorm.Statement) {
-
+func (i Impl) startDatastoreSegment(ctx *context.Context, operation string, statement *gorm.Statement) leafTracer.Span {
+	var span leafTracer.Span
+	span, *ctx = tracer.StartSpanFromContext(*ctx, operation,
+		//taniNewRelicTracer.WithSpanType(taniNewRelicSpanType.DataStore),
+		//taniNewRelicTracer.WithDataStore(taniNewRelicTracer.DataStoreOption{
+		//	Collection:         statement.Table,
+		//	DatabaseName:       i.DatabaseName,
+		//	Operation:          operation,
+		//	ParameterizedQuery: statement.SQL.String(),
+		//	QueryParameters:    statement.Vars,
+		//	DatastoreProduct:   i.DataStoreProduct,
+		//}),
+		leafSentryTracer.WithSpanType(leafSentrySpanType.DataStore),
+		leafSentryTracer.WithDataStore(leafSentryTracer.DataStoreOption{
+			Collection:         statement.Table,
+			DatabaseName:       i.DatabaseName,
+			Operation:          operation,
+			ParameterizedQuery: statement.SQL.String(),
+			QueryParameters:    statement.Vars,
+			DatastoreProduct:   string(i.DataStoreProduct),
+		}),
+	)
+	return span
 }
