@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/Shopify/sarama"
 	leafMQ "github.com/paulusrobin/leaf-utilities/messageQueue/messageQueue"
+	leafSlack "github.com/paulusrobin/leaf-utilities/slack"
 	"sync"
 )
 
@@ -89,13 +90,13 @@ func New(options ...Option) (leafMQ.MessagingQueue, error) {
 		}
 
 		if l.option.slackNotification.Active {
-			//slackNotification, err := taniSlack.Notification(
-			//	taniSlack.WithHook(l.option.slackNotification.Hook),
-			//	taniSlack.WithTimeout(l.option.slackNotification.Timeout))
-			//if err != nil {
-			//	return nil, err
-			//}
-			//l.consumer.slackNotification = slackNotification
+			slackNotification, err := leafSlack.Notification(
+				leafSlack.WithHook(l.option.slackNotification.Hook),
+				leafSlack.WithTimeout(l.option.slackNotification.Timeout))
+			if err != nil {
+				return nil, err
+			}
+			l.consumer.slackNotification = slackNotification
 		}
 	}
 

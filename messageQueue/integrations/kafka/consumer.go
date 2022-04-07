@@ -1,24 +1,27 @@
 package leafKafka
 
 import (
+	"context"
 	"fmt"
 	"github.com/Shopify/sarama"
 	"github.com/google/uuid"
 	leafHeader "github.com/paulusrobin/leaf-utilities/common/header"
+	"github.com/paulusrobin/leaf-utilities/encoding/json"
 	leafMQ "github.com/paulusrobin/leaf-utilities/messageQueue/messageQueue"
+	leafSlack "github.com/paulusrobin/leaf-utilities/slack"
 	"sync"
 )
 
 type (
 	Strategy string
 	consumer struct {
-		mu          *sync.Mutex
-		topics      map[string]leafMQ.Dispatcher
-		ready       chan bool
-		listening   bool
-		option      option
-		middlewares []leafMQ.MiddlewareFunc
-		//slackNotification taniSlack.Integration
+		mu                *sync.Mutex
+		topics            map[string]leafMQ.Dispatcher
+		ready             chan bool
+		listening         bool
+		option            option
+		middlewares       []leafMQ.MiddlewareFunc
+		slackNotification leafSlack.Integration
 	}
 	messageShown struct {
 		ID         string            `json:"id"`
@@ -129,69 +132,69 @@ func (c *consumer) processMessage(topic string, session sarama.ConsumerGroupSess
 		Err:       err,
 	}
 	_ = dispatcher.Dispatch(errMessage, c.middlewares...)
-	//c.pushNotificationToSlack(message)
+	c.pushNotificationToSlack(message)
 	session.MarkMessage(msg, "")
 }
 
-//func (c *consumer) pushNotificationToSlack(msg leafMQ.DispatchDTO) {
-//	if !c.option.slackNotification.Active || c.slackNotification == nil {
-//		return
-//	}
-//
-//	for key := range msg.Msg.Attributes {
-//		if val, ok := maskedAttributes[key]; ok {
-//			msg.Msg.Attributes[key] = val
-//		}
-//	}
-//
-//	msgShown := messageShown{
-//		ID:         msg.Msg.GetID(),
-//		Ordering:   msg.Msg.Ordering,
-//		Data:       string(msg.Msg.Data),
-//		Attributes: msg.Msg.Attributes,
-//	}
-//
-//	var msgData map[string]interface{}
-//	if err := json.Unmarshal(msg.Msg.Data, &msgData); err == nil {
-//		msgShown.Data = msgData
-//	}
-//
-//	jsonByte, _ := json.MarshalIndent(msgShown, "", "  ")
-//	messageBody, err := taniSlack.NewMessage(
-//		taniSlack.WithBlock(taniSlack.Block{
-//			Type: "header",
-//			Text: taniSlack.Text{
-//				Type: "plain_text",
-//				Text: fmt.Sprintf("Error on consuming Kafka Message: [%s]", msg.RequestID),
-//			},
-//		}),
-//		taniSlack.WithBlock(taniSlack.Block{
-//			Type: "section",
-//			Text: taniSlack.Text{
-//				Type: "mrkdwn",
-//				Text: fmt.Sprintf("<!channel> error on processing this message on %s", msg.Source),
-//			},
-//		}),
-//		taniSlack.WithBlock(taniSlack.Block{
-//			Type: "section",
-//			Text: taniSlack.Text{
-//				Type: "mrkdwn",
-//				Text: fmt.Sprintf("with error: ```%s```", msg.Err.Error()),
-//			},
-//		}),
-//		taniSlack.WithBlock(taniSlack.Block{
-//			Type: "section",
-//			Text: taniSlack.Text{
-//				Type: "mrkdwn",
-//				Text: fmt.Sprintf("with params: ```%s```", string(jsonByte)),
-//			},
-//		}),
-//	)
-//	if err != nil {
-//		c.option.logger.StandardLogger().Errorf("Error on create push notification message to slack: %+v", err.Error())
-//	}
-//
-//	if err := c.slackNotification.Push(context.Background(), messageBody); err != nil {
-//		c.option.logger.StandardLogger().Errorf("Error on push notification to slack: %+v", err.Error())
-//	}
-//}
+func (c *consumer) pushNotificationToSlack(msg leafMQ.DispatchDTO) {
+	if !c.option.slackNotification.Active || c.slackNotification == nil {
+		return
+	}
+
+	for key := range msg.Msg.Attributes {
+		if val, ok := maskedAttributes[key]; ok {
+			msg.Msg.Attributes[key] = val
+		}
+	}
+
+	msgShown := messageShown{
+		ID:         msg.Msg.GetID(),
+		Ordering:   msg.Msg.Ordering,
+		Data:       string(msg.Msg.Data),
+		Attributes: msg.Msg.Attributes,
+	}
+
+	var msgData map[string]interface{}
+	if err := json.Unmarshal(msg.Msg.Data, &msgData); err == nil {
+		msgShown.Data = msgData
+	}
+
+	jsonByte, _ := json.MarshalIndent(msgShown, "", "  ")
+	messageBody, err := leafSlack.NewMessage(
+		leafSlack.WithBlock(leafSlack.Block{
+			Type: "header",
+			Text: leafSlack.Text{
+				Type: "plain_text",
+				Text: fmt.Sprintf("Error on consuming Kafka Message: [%s]", msg.RequestID),
+			},
+		}),
+		leafSlack.WithBlock(leafSlack.Block{
+			Type: "section",
+			Text: leafSlack.Text{
+				Type: "mrkdwn",
+				Text: fmt.Sprintf("<!channel> error on processing this message on %s", msg.Source),
+			},
+		}),
+		leafSlack.WithBlock(leafSlack.Block{
+			Type: "section",
+			Text: leafSlack.Text{
+				Type: "mrkdwn",
+				Text: fmt.Sprintf("with error: ```%s```", msg.Err.Error()),
+			},
+		}),
+		leafSlack.WithBlock(leafSlack.Block{
+			Type: "section",
+			Text: leafSlack.Text{
+				Type: "mrkdwn",
+				Text: fmt.Sprintf("with params: ```%s```", string(jsonByte)),
+			},
+		}),
+	)
+	if err != nil {
+		c.option.logger.StandardLogger().Errorf("Error on create push notification message to slack: %+v", err.Error())
+	}
+
+	if err := c.slackNotification.Push(context.Background(), messageBody); err != nil {
+		c.option.logger.StandardLogger().Errorf("Error on push notification to slack: %+v", err.Error())
+	}
+}
