@@ -22,8 +22,8 @@ type (
 )
 
 func (p *producer) Publish(ctx context.Context, topic string, msg leafMQ.Message) error {
-	//span := startMessagingProducerSpan(ctx, topic)
-	//defer span.Finish()
+	span := startMessagingProducerSpan(ctx, topic)
+	defer span.Finish()
 
 	headers := make([]sarama.RecordHeader, 0)
 

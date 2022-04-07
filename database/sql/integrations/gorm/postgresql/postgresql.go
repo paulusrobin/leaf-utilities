@@ -4,6 +4,7 @@ import (
 	"fmt"
 	leafGorm "github.com/enricodg/leaf-utilities/database/sql/integrations/gorm"
 	leafSql "github.com/enricodg/leaf-utilities/database/sql/sql"
+	"github.com/newrelic/go-agent/v3/newrelic"
 	leafLogrus "github.com/paulusrobin/leaf-utilities/logger/integrations/logrus"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -58,10 +59,10 @@ func New(dbConnection DbConnection, options ...leafSql.ConnectionOption) (leafSq
 	sqlDb.SetMaxOpenConns(option.MaxOpenConnection)
 	sqlDb.SetConnMaxLifetime(option.ConnMaxLifetime)
 	return &leafGorm.Impl{
-		GormDB:       db,
-		GormDBDryRun: db.Session(&gorm.Session{DryRun: true}),
-		Log:          option.Logger(),
-		DatabaseName: dbConnection.DbName,
-		//DataStoreProduct: newrelic.DatastorePostgres,
+		GormDB:           db,
+		GormDBDryRun:     db.Session(&gorm.Session{DryRun: true}),
+		Log:              option.Logger(),
+		DatabaseName:     dbConnection.DbName,
+		DataStoreProduct: newrelic.DatastorePostgres,
 	}, nil
 }

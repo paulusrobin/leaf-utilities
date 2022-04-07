@@ -108,14 +108,14 @@ func (i *implementation) DB() leafNoSql.Database {
 }
 
 func (i *implementation) FindAll(ctx context.Context, collection string, filter interface{}, results interface{}, options ...*options.FindOptions) error {
-	//span := startDataStoreSpan(&ctx, dataStoreParam{
-	//	databaseName:       i.databaseName,
-	//	operationName:      "FindAll",
-	//	collectionName:     collection,
-	//	parameterizedQuery: "find all where $1",
-	//	queryParameters:    []interface{}{filter},
-	//})
-	//defer span.Finish()
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		databaseName:       i.databaseName,
+		operationName:      "FindAll",
+		collectionName:     collection,
+		parameterizedQuery: "find all where $1",
+		queryParameters:    []interface{}{filter},
+	})
+	defer span.Finish()
 
 	rs, err := i.database.Collection(collection).Find(ctx, filter, options...)
 
@@ -131,14 +131,14 @@ func (i *implementation) FindAll(ctx context.Context, collection string, filter 
 }
 
 func (i *implementation) FindOne(ctx context.Context, collection string, filter, object interface{}, options ...*options.FindOneOptions) error {
-	//span := startDataStoreSpan(&ctx, dataStoreParam{
-	//	databaseName:       i.databaseName,
-	//	operationName:      "FindOne",
-	//	collectionName:     collection,
-	//	parameterizedQuery: "find one where $1",
-	//	queryParameters:    []interface{}{filter},
-	//})
-	//defer span.Finish()
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		databaseName:       i.databaseName,
+		operationName:      "FindOne",
+		collectionName:     collection,
+		parameterizedQuery: "find one where $1",
+		queryParameters:    []interface{}{filter},
+	})
+	defer span.Finish()
 
 	sr := i.database.Collection(collection).FindOne(ctx, filter, options...)
 
@@ -154,14 +154,14 @@ func (i *implementation) FindOne(ctx context.Context, collection string, filter,
 }
 
 func (i *implementation) Find(ctx context.Context, collection string, filter interface{}, callback leafNoSql.FindCallback, options ...*options.FindOptions) error {
-	//span := startDataStoreSpan(&ctx, dataStoreParam{
-	//	databaseName:       i.databaseName,
-	//	operationName:      "Find",
-	//	collectionName:     collection,
-	//	parameterizedQuery: "find where $1",
-	//	queryParameters:    []interface{}{filter},
-	//})
-	//defer span.Finish()
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		databaseName:       i.databaseName,
+		operationName:      "Find",
+		collectionName:     collection,
+		parameterizedQuery: "find where $1",
+		queryParameters:    []interface{}{filter},
+	})
+	defer span.Finish()
 
 	coll, err := i.database.Collection(collection).Find(ctx, filter, options...)
 	if err != nil {
@@ -188,14 +188,14 @@ func (i *implementation) Find(ctx context.Context, collection string, filter int
 }
 
 func (i *implementation) FindOneAndDelete(ctx context.Context, collection string, filter interface{}, options ...*options.FindOneAndDeleteOptions) error {
-	//span := startDataStoreSpan(&ctx, dataStoreParam{
-	//	databaseName:       i.databaseName,
-	//	operationName:      "FindOneAndDelete",
-	//	collectionName:     collection,
-	//	parameterizedQuery: "find where $1, delete",
-	//	queryParameters:    []interface{}{filter},
-	//})
-	//defer span.Finish()
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		databaseName:       i.databaseName,
+		operationName:      "FindOneAndDelete",
+		collectionName:     collection,
+		parameterizedQuery: "find where $1, delete",
+		queryParameters:    []interface{}{filter},
+	})
+	defer span.Finish()
 
 	sr := i.database.Collection(collection).FindOneAndDelete(ctx, filter, options...)
 
@@ -207,14 +207,14 @@ func (i *implementation) FindOneAndDelete(ctx context.Context, collection string
 }
 
 func (i *implementation) FindOneAndUpdate(ctx context.Context, collection string, filter, object interface{}, options ...*options.FindOneAndUpdateOptions) error {
-	//span := startDataStoreSpan(&ctx, dataStoreParam{
-	//	databaseName:       i.databaseName,
-	//	operationName:      "FindOneAndUpdate",
-	//	collectionName:     collection,
-	//	parameterizedQuery: "find where $1, set $2",
-	//	queryParameters:    []interface{}{filter, object},
-	//})
-	//defer span.Finish()
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		databaseName:       i.databaseName,
+		operationName:      "FindOneAndUpdate",
+		collectionName:     collection,
+		parameterizedQuery: "find where $1, set $2",
+		queryParameters:    []interface{}{filter, object},
+	})
+	defer span.Finish()
 
 	sr := i.database.Collection(collection).FindOneAndUpdate(ctx, filter, object, options...)
 
@@ -230,14 +230,14 @@ func (i *implementation) FindOneAndUpdate(ctx context.Context, collection string
 }
 
 func (i *implementation) Insert(ctx context.Context, collection string, object interface{}, options ...*options.InsertOneOptions) (*primitive.ObjectID, error) {
-	//span := startDataStoreSpan(&ctx, dataStoreParam{
-	//	databaseName:       i.databaseName,
-	//	operationName:      "Insert",
-	//	collectionName:     collection,
-	//	parameterizedQuery: "insert $1",
-	//	queryParameters:    []interface{}{object},
-	//})
-	//defer span.Finish()
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		databaseName:       i.databaseName,
+		operationName:      "Insert",
+		collectionName:     collection,
+		parameterizedQuery: "insert $1",
+		queryParameters:    []interface{}{object},
+	})
+	defer span.Finish()
 
 	ir, err := i.database.Collection(collection).InsertOne(ctx, object, options...)
 
@@ -255,14 +255,14 @@ func (i *implementation) Insert(ctx context.Context, collection string, object i
 }
 
 func (i *implementation) InsertMany(ctx context.Context, collection string, documents []interface{}, options ...*options.InsertManyOptions) ([]primitive.ObjectID, error) {
-	//span := startDataStoreSpan(&ctx, dataStoreParam{
-	//	databaseName:       i.databaseName,
-	//	operationName:      "InsertMany",
-	//	collectionName:     collection,
-	//	parameterizedQuery: "insert $1",
-	//	queryParameters:    []interface{}{documents},
-	//})
-	//defer span.Finish()
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		databaseName:       i.databaseName,
+		operationName:      "InsertMany",
+		collectionName:     collection,
+		parameterizedQuery: "insert $1",
+		queryParameters:    []interface{}{documents},
+	})
+	defer span.Finish()
 
 	ir, err := i.database.Collection(collection).InsertMany(ctx, documents, options...)
 
@@ -291,14 +291,14 @@ func (i *implementation) InsertMany(ctx context.Context, collection string, docu
 }
 
 func (i *implementation) Update(ctx context.Context, collection string, filter, object interface{}, options ...*options.UpdateOptions) error {
-	//span := startDataStoreSpan(&ctx, dataStoreParam{
-	//	databaseName:       i.databaseName,
-	//	operationName:      "Update",
-	//	collectionName:     collection,
-	//	parameterizedQuery: "update where $1 set $2",
-	//	queryParameters:    []interface{}{filter, object},
-	//})
-	//defer span.Finish()
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		databaseName:       i.databaseName,
+		operationName:      "Update",
+		collectionName:     collection,
+		parameterizedQuery: "update where $1 set $2",
+		queryParameters:    []interface{}{filter, object},
+	})
+	defer span.Finish()
 
 	if _, err := i.database.Collection(collection).UpdateOne(ctx, filter, object, options...); err != nil {
 		return fmt.Errorf("UpdateWithContext failed: %+v", err)
@@ -308,14 +308,14 @@ func (i *implementation) Update(ctx context.Context, collection string, filter, 
 }
 
 func (i *implementation) UpdateMany(ctx context.Context, collection string, filter, object interface{}, options ...*options.UpdateOptions) error {
-	//span := startDataStoreSpan(&ctx, dataStoreParam{
-	//	databaseName:       i.databaseName,
-	//	operationName:      "UpdateMany",
-	//	collectionName:     collection,
-	//	parameterizedQuery: "update many where $1 set $2",
-	//	queryParameters:    []interface{}{filter, object},
-	//})
-	//defer span.Finish()
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		databaseName:       i.databaseName,
+		operationName:      "UpdateMany",
+		collectionName:     collection,
+		parameterizedQuery: "update many where $1 set $2",
+		queryParameters:    []interface{}{filter, object},
+	})
+	defer span.Finish()
 
 	if _, err := i.database.Collection(collection).UpdateMany(ctx, filter, object, options...); err != nil {
 		return fmt.Errorf("UpdateManyWithContext failed: %+v", err)
@@ -325,14 +325,14 @@ func (i *implementation) UpdateMany(ctx context.Context, collection string, filt
 }
 
 func (i *implementation) DeleteMany(ctx context.Context, collection string, filter interface{}, options ...*options.DeleteOptions) error {
-	//span := startDataStoreSpan(&ctx, dataStoreParam{
-	//	databaseName:       i.databaseName,
-	//	operationName:      "DeleteMany",
-	//	collectionName:     collection,
-	//	parameterizedQuery: "delete many where $1",
-	//	queryParameters:    []interface{}{filter},
-	//})
-	//defer span.Finish()
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		databaseName:       i.databaseName,
+		operationName:      "DeleteMany",
+		collectionName:     collection,
+		parameterizedQuery: "delete many where $1",
+		queryParameters:    []interface{}{filter},
+	})
+	defer span.Finish()
 
 	if _, err := i.database.Collection(collection).DeleteMany(ctx, filter, options...); err != nil {
 		return fmt.Errorf("DeleteManyWithContext failed: %+v", err)
@@ -342,14 +342,14 @@ func (i *implementation) DeleteMany(ctx context.Context, collection string, filt
 }
 
 func (i *implementation) Delete(ctx context.Context, collection string, filter interface{}, options ...*options.DeleteOptions) error {
-	//span := startDataStoreSpan(&ctx, dataStoreParam{
-	//	databaseName:       i.databaseName,
-	//	operationName:      "Delete",
-	//	collectionName:     collection,
-	//	parameterizedQuery: "delete one where $1",
-	//	queryParameters:    []interface{}{filter},
-	//})
-	//defer span.Finish()
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		databaseName:       i.databaseName,
+		operationName:      "Delete",
+		collectionName:     collection,
+		parameterizedQuery: "delete one where $1",
+		queryParameters:    []interface{}{filter},
+	})
+	defer span.Finish()
 
 	if _, err := i.database.Collection(collection).DeleteOne(ctx, filter, options...); err != nil {
 		return fmt.Errorf("DeleteWithContext failed: %+v", err)
@@ -370,26 +370,26 @@ func (i *implementation) countWithFilter(ctx context.Context, collection string,
 }
 
 func (i *implementation) CountWithFilter(ctx context.Context, collection string, filter interface{}, opts ...*options.CountOptions) (int64, error) {
-	//span := startDataStoreSpan(&ctx, dataStoreParam{
-	//	databaseName:       i.databaseName,
-	//	operationName:      "CountWithFilter",
-	//	collectionName:     collection,
-	//	parameterizedQuery: "count where $1",
-	//	queryParameters:    []interface{}{filter},
-	//})
-	//defer span.Finish()
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		databaseName:       i.databaseName,
+		operationName:      "CountWithFilter",
+		collectionName:     collection,
+		parameterizedQuery: "count where $1",
+		queryParameters:    []interface{}{filter},
+	})
+	defer span.Finish()
 	return i.countWithFilter(ctx, collection, filter, opts...)
 }
 
 func (i *implementation) Distinct(ctx context.Context, collection, field string, filter interface{}, opts ...*options.DistinctOptions) ([]interface{}, error) {
-	//span := startDataStoreSpan(&ctx, dataStoreParam{
-	//	databaseName:       i.databaseName,
-	//	operationName:      "Distinct",
-	//	collectionName:     collection,
-	//	parameterizedQuery: "distinct",
-	//	queryParameters:    []interface{}{field, filter},
-	//})
-	//defer span.Finish()
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		databaseName:       i.databaseName,
+		operationName:      "Distinct",
+		collectionName:     collection,
+		parameterizedQuery: "distinct",
+		queryParameters:    []interface{}{field, filter},
+	})
+	defer span.Finish()
 
 	object, err := i.database.Collection(collection).Distinct(ctx, field, filter, opts...)
 	if err != nil {
@@ -400,14 +400,14 @@ func (i *implementation) Distinct(ctx context.Context, collection, field string,
 }
 
 func (i *implementation) Count(ctx context.Context, collection string, opts ...*options.CountOptions) (int64, error) {
-	//span := startDataStoreSpan(&ctx, dataStoreParam{
-	//	databaseName:       i.databaseName,
-	//	operationName:      "Count",
-	//	collectionName:     collection,
-	//	parameterizedQuery: "count",
-	//	queryParameters:    []interface{}{},
-	//})
-	//defer span.Finish()
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		databaseName:       i.databaseName,
+		operationName:      "Count",
+		collectionName:     collection,
+		parameterizedQuery: "count",
+		queryParameters:    []interface{}{},
+	})
+	defer span.Finish()
 	return i.countWithFilter(ctx, collection, bson.D{}, opts...)
 }
 
@@ -416,14 +416,14 @@ func (i *implementation) Indexes(collection string) leafNoSql.IndexView {
 }
 
 func (i *implementation) BulkDocument(ctx context.Context, collection string, data []mgo.WriteModel) error {
-	//span := startDataStoreSpan(&ctx, dataStoreParam{
-	//	databaseName:       i.databaseName,
-	//	operationName:      "BulkDocument",
-	//	collectionName:     collection,
-	//	parameterizedQuery: "bulk document $1",
-	//	queryParameters:    []interface{}{data},
-	//})
-	//defer span.Finish()
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		databaseName:       i.databaseName,
+		operationName:      "BulkDocument",
+		collectionName:     collection,
+		parameterizedQuery: "bulk document $1",
+		queryParameters:    []interface{}{data},
+	})
+	defer span.Finish()
 
 	_, err := i.database.Collection(collection).BulkWrite(ctx, data)
 	if err != nil {
@@ -433,14 +433,14 @@ func (i *implementation) BulkDocument(ctx context.Context, collection string, da
 }
 
 func (i *implementation) Aggregate(ctx context.Context, collection string, pipeline interface{}, callback leafNoSql.FindCallback, options ...*options.AggregateOptions) error {
-	//span := startDataStoreSpan(&ctx, dataStoreParam{
-	//	databaseName:       i.databaseName,
-	//	operationName:      "Aggregate",
-	//	collectionName:     collection,
-	//	parameterizedQuery: "aggregate $1",
-	//	queryParameters:    []interface{}{pipeline},
-	//})
-	//defer span.Finish()
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		databaseName:       i.databaseName,
+		operationName:      "Aggregate",
+		collectionName:     collection,
+		parameterizedQuery: "aggregate $1",
+		queryParameters:    []interface{}{pipeline},
+	})
+	defer span.Finish()
 
 	coll, err := i.database.Collection(collection).Aggregate(ctx, pipeline, options...)
 	if err != nil {

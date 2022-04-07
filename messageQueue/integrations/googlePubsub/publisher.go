@@ -23,8 +23,8 @@ type (
 )
 
 func (p *publisher) Publish(ctx context.Context, topic string, msg leafMQ.Message) error {
-	//span := startMessagingProducerSpan(ctx, topic)
-	//defer span.Finish()
+	span := startMessagingProducerSpan(ctx, topic)
+	defer span.Finish()
 
 	if _, found := p.publisherTopics[topic]; !found {
 		pubTopic := p.client.Topic(topic)
