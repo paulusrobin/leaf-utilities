@@ -76,18 +76,18 @@ func (s *subscriber) processMessage(topic string, msg *google.Message) {
 	requestID := msg.Attributes[leafHeader.MessagingID]
 	msgType := msg.Attributes["message"]
 
-	taniMsg := leafMQ.Message{
+	mqMsg := leafMQ.Message{
 		Data:       msg.Data,
 		Attributes: msg.Attributes,
 	}
-	taniMsg.SetID(msg.ID)
+	mqMsg.SetID(msg.ID)
 
 	message := leafMQ.DispatchDTO{
 		Type:      leafMQ.Handle,
 		Source:    fmt.Sprintf("Google PubSub - %s", topic),
 		RequestID: requestID,
 		MsgType:   msgType,
-		Msg:       taniMsg,
+		Msg:       mqMsg,
 		Log:       s.option.logger,
 	}
 	if err := s.dispatcher.Dispatch(message, s.middlewares...); err != nil {
@@ -101,7 +101,7 @@ func (s *subscriber) processMessage(topic string, msg *google.Message) {
 			Source:    fmt.Sprintf("Google PubSub - %s", topic),
 			RequestID: requestID,
 			MsgType:   msgType,
-			Msg:       taniMsg,
+			Msg:       mqMsg,
 			Log:       s.option.logger,
 			Err:       err,
 		}

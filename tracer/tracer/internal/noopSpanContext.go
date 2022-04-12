@@ -2,17 +2,17 @@ package internal
 
 import "context"
 
-// NoopSpanContext is an implementation of taniTracer.SpanContext that is a no-op.
+// NoopSpanContext is an implementation of leafTracer.SpanContext that is a no-op.
 type NoopSpanContext struct{}
 
-// SpanID implements taniTracer.SpanContext.
+// SpanID implements leafTracer.SpanContext.
 func (NoopSpanContext) SpanID() string { return "" }
 
-// TraceID implements taniTracer.SpanContext.
+// TraceID implements leafTracer.SpanContext.
 func (NoopSpanContext) TraceID() string { return "" }
 
-// ForeachBaggageItem implements taniTracer.SpanContext.
+// ForeachBaggageItem implements leafTracer.SpanContext.
 func (NoopSpanContext) ForeachBaggageItem(handler func(k, v string) bool) {}
 
-// Context implements taniTracer.SpanContext.
+// Context implements leafTracer.SpanContext.
 func (NoopSpanContext) Context() context.Context { return context.Background() }

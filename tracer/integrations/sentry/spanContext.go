@@ -5,14 +5,14 @@ import (
 	"github.com/getsentry/sentry-go"
 )
 
-// SentrySpanContext is an implementation of taniTracer.SpanContext that is for newrelic.
+// SentrySpanContext is an implementation of leafTracer.SpanContext that is for newrelic.
 type (
 	SentrySpanContext struct {
 		span *sentry.Span
 	}
 )
 
-// SpanID implements taniTracer.SpanContext.
+// SpanID implements leafTracer.SpanContext.
 func (s *SentrySpanContext) SpanID() string {
 	if nil == s.span {
 		return randomIDString()
@@ -20,7 +20,7 @@ func (s *SentrySpanContext) SpanID() string {
 	return s.span.SpanID.String()
 }
 
-// TraceID implements taniTracer.SpanContext.
+// TraceID implements leafTracer.SpanContext.
 func (s *SentrySpanContext) TraceID() string {
 	if nil == s.span {
 		return randomIDString()
@@ -28,10 +28,10 @@ func (s *SentrySpanContext) TraceID() string {
 	return s.span.TraceID.String()
 }
 
-// ForeachBaggageItem implements taniTracer.SpanContext.
+// ForeachBaggageItem implements leafTracer.SpanContext.
 func (s *SentrySpanContext) ForeachBaggageItem(handler func(k, v string) bool) {}
 
-// Context implements taniTracer.SpanContext.
+// Context implements leafTracer.SpanContext.
 func (s *SentrySpanContext) Context() context.Context {
 	if nil == s.span {
 		return context.Background()
