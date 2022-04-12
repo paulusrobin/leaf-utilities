@@ -1,4 +1,4 @@
-module github.com/paulusrobin/leaf-utilities/database/integrations/gomongo
+module github.com/paulusrobin/leaf-utilities/database/nosql/integrations/gomongo
 
 go 1.16
 
