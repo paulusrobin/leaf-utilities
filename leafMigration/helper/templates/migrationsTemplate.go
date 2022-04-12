@@ -24,9 +24,7 @@ func (m *migration_{{.Version}}) Name() string {
 }
 
 func (m *migration_{{.Version}}) Migrate() error {
-	{{if .IsMongo}}
-	panic("implement me"){{else}}
-	script, err := file.ReadToString("./scripts/{{.MigrationType}}/{{.Version}}_{{.MigrationName}}_migrate.sql")
+	{{if .IsMongo}}panic("implement me"){{else}}script, err := file.ReadToString("./scripts/{{.MigrationType}}/{{.Version}}_{{.MigrationName}}_migrate.sql")
 	if err != nil {
 		return err
 	}
@@ -35,8 +33,7 @@ func (m *migration_{{.Version}}) Migrate() error {
 		return err.Error()
 	}
 
-	return nil
-	{{end}}
+	return nil{{end}}
 }
 
 func (m *migration_{{.Version}}) Rollback() error {

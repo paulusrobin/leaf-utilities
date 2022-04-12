@@ -148,7 +148,7 @@ func (p *PostgreSQL) Migrate(ver version.Version, specific bool) error {
 }
 
 func (p *PostgreSQL) migrate(ctx *context.Context, m migration.Migration) error {
-	p.log.StandardLogger().Infof("[%s] execute migration version %d: %+v", p.Name(), m.Version())
+	p.log.StandardLogger().Infof("[%s] execute migration version %d", p.Name(), m.Version())
 	if err := m.Migrate(); err != nil {
 		p.log.StandardLogger().Errorf("[%s] error execute migration version %d: %+v", p.Name(), m.Version(),
 			err.Error())

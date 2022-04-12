@@ -147,7 +147,7 @@ func (s *MySQL) Migrate(ver version.Version, specific bool) error {
 }
 
 func (s *MySQL) migrate(ctx *context.Context, m migration.Migration) error {
-	s.log.StandardLogger().Infof("[%s] execute migration version %d: %+v", s.Name(), m.Version())
+	s.log.StandardLogger().Infof("[%s] execute migration version %d", s.Name(), m.Version())
 	if err := m.Migrate(); err != nil {
 		s.log.StandardLogger().Errorf("[%s] error execute migration version %d: %+v", s.Name(), m.Version(),
 			err.Error())

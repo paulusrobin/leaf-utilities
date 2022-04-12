@@ -7,9 +7,6 @@ import (
 )
 
 type (
-	InitializeProjectRequestDTO struct {
-		ProjectName string
-	}
 	MigrationRequestDTO struct {
 		Version       uint64
 		MigrationType string
@@ -29,41 +26,6 @@ func CreateEmptyFile(outputPath string) error {
 		return err
 	}
 	_ = f.Close()
-	return nil
-}
-
-func Initialize(data InitializeProjectRequestDTO) error {
-	main, err := template.New("main.go").Parse(templates.MainTemplate)
-	if err != nil {
-		return err
-	}
-
-	goMod, err := template.New("go.mod").Parse(templates.GoModTemplate)
-	if err != nil {
-		return err
-	}
-
-	mainFile, err := os.Create("main.go")
-	if err != nil {
-		return err
-	}
-	defer mainFile.Close()
-
-	err = main.Execute(mainFile, nil)
-	if err != nil {
-		return err
-	}
-
-	goModFile, err := os.Create("go.mod")
-	if err != nil {
-		return err
-	}
-	defer goModFile.Close()
-
-	err = goMod.Execute(goModFile, data)
-	if err != nil {
-		return err
-	}
 	return nil
 }
 

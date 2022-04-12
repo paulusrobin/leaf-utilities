@@ -44,11 +44,9 @@ func (c Cli) Run() *cli.App {
 	app.Name = "Leaf Migration"
 	app.Usage = "Command Line Tools for Databases Migration"
 	app.UsageText = "command [command options] [arguments...]"
-	app.HelpName = "leafMigration"
 	app.Description = "CLI migration tools"
 	app.Version = "v1.0.0"
 	app.Commands = []*cli.Command{
-		command.Init(),
 		command.New(),
 		command.Migrate(*c.migrator),
 		command.Rollback(*c.migrator),
