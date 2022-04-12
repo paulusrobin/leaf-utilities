@@ -9,6 +9,7 @@ import (
 	"github.com/paulusrobin/leaf-utilities/leafMigration/helper/version"
 	leafLogger "github.com/paulusrobin/leaf-utilities/logger/logger"
 	"github.com/pkg/errors"
+	"os"
 	"path/filepath"
 	"strings"
 )
@@ -23,12 +24,21 @@ func (h handler) New(version version.Version, migrationType string, migrationNam
 	scriptsPath := fmt.Sprintf("scripts/%s", migrationType)
 
 	fileName := fmt.Sprintf("%d_%s.go", version, neutralizedName)
+	extension := "sql"
+	if connection.IsMongo(migrationType) {
+		extension = "js"
+	}
+	migrateFileName := fmt.Sprintf("%d_%s_migrate.%s", version, neutralizedName, extension)
+	rollbackFileName := fmt.Sprintf("%d_%s_rollback.%s", version, neutralizedName, extension)
 
 	// NOTE: create migrations file
 	h.log.Info(leafLogger.BuildMessage(context.Background(), "[%s] creating migration file version: %d_%s.go",
 		leafLogger.WithAttr("migrationType", strings.ToUpper(migrationType)),
 		leafLogger.WithAttr("version", version),
 		leafLogger.WithAttr("neutralizedName", neutralizedName)))
+	if err := os.MkdirAll(migrationsPath, os.ModePerm); err != nil {
+		return err
+	}
 	if err := helper.CreateMigrations(filepath.Join(migrationsPath, fileName),
 		helper.MigrationRequestDTO{
 			Version:       uint64(version),
@@ -45,11 +55,10 @@ func (h handler) New(version version.Version, migrationType string, migrationNam
 	}
 
 	// NOTE: create migrate script file
-	extension := ".sql"
-	if connection.IsMongo(migrationType) {
-		extension = ".js"
+	if err := os.MkdirAll(scriptsPath, os.ModePerm); err != nil {
+		return err
 	}
-	if err := helper.CreateEmptyFile(filepath.Join(scriptsPath, fileName, "_migrate", extension)); err != nil {
+	if err := helper.CreateEmptyFile(filepath.Join(scriptsPath, migrateFileName)); err != nil {
 		h.log.Error(leafLogger.BuildMessage(context.Background(), "[%s] error creating migrate migration file version: %d_%s.go: %s",
 			leafLogger.WithAttr("migrationType", strings.ToUpper(migrationType)),
 			leafLogger.WithAttr("version", version),
@@ -59,7 +68,7 @@ func (h handler) New(version version.Version, migrationType string, migrationNam
 	}
 
 	// NOTE: create rollback script file
-	if err := helper.CreateEmptyFile(filepath.Join(scriptsPath, fileName, "_rollback", extension)); err != nil {
+	if err := helper.CreateEmptyFile(filepath.Join(scriptsPath, rollbackFileName)); err != nil {
 		h.log.Error(leafLogger.BuildMessage(context.Background(), "[%s] error creating rollback migration file version: %d_%s.go: %s",
 			leafLogger.WithAttr("migrationType", strings.ToUpper(migrationType)),
 			leafLogger.WithAttr("version", version),
