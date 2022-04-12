@@ -6,7 +6,7 @@ package {{.MigrationType}}
 import (
 	leafLogger "github.com/paulusrobin/leaf-utilities/logger/logger"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/helper/migration"
-	{{if .IsMongo}}nosqlConnection "github.com/paulusrobin/leaf-utilities/database/nosql/nosql"{{else}}sqlConnection "github.com/paulusrobin/leaf-utilities/database/sql/sql"{{end}}
+	{{if .IsMongo}}nosqlConnection "github.com/paulusrobin/leaf-utilities/database/nosql/nosql"{{else}}sqlConnection "github.com/enricodg/leaf-utilities/database/sql/sql"{{end}}
 )
 
 func InitializeMigrations({{if .IsMongo}}conn nosqlConnection.Mongo{{else}}conn sqlConnection.ORM{{end}}, log leafLogger.Logger) []migration.Migration {

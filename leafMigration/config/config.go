@@ -48,7 +48,7 @@ type (
 
 func (e EnvConfig) validate() error {
 	if e.MySQLAddress != "" {
-		if e.MySQLUsername == "" || e.MySQLPassword == "" || e.MySQLDbName == "" {
+		if e.MySQLUsername == "" || e.MySQLDbName == "" {
 			return errors.New("MY_SQL_USERNAME, MY_SQL_PASSWORD, MY_SQL_DB_NAME is required")
 		}
 		if e.MySQLMaxOpenConnection == 0 || e.MySQLMaxIdleConnection == 0 || e.MySQLMaxLifetimeConnection == 0 {
@@ -57,7 +57,7 @@ func (e EnvConfig) validate() error {
 	}
 
 	if e.PostgreSQLAddress != "" {
-		if e.PostgreSQLUsername == "" || e.PostgreSQLPassword == "" || e.PostgreSQLDbName == "" {
+		if e.PostgreSQLUsername == "" || e.PostgreSQLDbName == "" {
 			return errors.New("POSTGRE_SQL_USERNAME, POSTGRE_SQL_PASSWORD, POSTGRE_SQL_DB_NAME is required")
 		}
 		if e.PostgreSQLMaxOpenConnection == 0 || e.PostgreSQLMaxIdleConnection == 0 || e.PostgreSQLMaxLifetimeConnection == 0 {

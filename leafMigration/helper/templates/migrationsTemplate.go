@@ -40,9 +40,7 @@ func (m *migration_{{.Version}}) Migrate() error {
 }
 
 func (m *migration_{{.Version}}) Rollback() error {
-	{{if .IsMongo}}
-	panic("implement me"){{else}}
-	script, err := file.ReadToString("./scripts/{{.MigrationType}}/{{.Version}}_{{.MigrationName}}_rollback.sql")
+	{{if .IsMongo}}panic("implement me"){{else}}script, err := file.ReadToString("./scripts/{{.MigrationType}}/{{.Version}}_{{.MigrationName}}_rollback.sql")
 	if err != nil {
 		return err
 	}
@@ -51,7 +49,6 @@ func (m *migration_{{.Version}}) Rollback() error {
 		return err.Error()
 	}
 
-	return nil
-	{{end}}
+	return nil{{end}}
 }
 `
