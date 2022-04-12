@@ -1,7 +1,6 @@
 package leafMigration
 
 import (
-	"context"
 	leafSql "github.com/enricodg/leaf-utilities/database/sql/sql"
 	leafNoSql "github.com/paulusrobin/leaf-utilities/database/nosql/nosql"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/command"
@@ -57,8 +56,7 @@ func (c Cli) Run() *cli.App {
 	}
 
 	if err := app.Run(os.Args); err != nil {
-		log.Error(leafLogger.BuildMessage(context.Background(), "Run Error: %+v",
-			leafLogger.WithAttr("error", err)))
+		log.StandardLogger().Errorf("Run Error: %+v", err)
 	}
 
 	return app
