@@ -23,9 +23,6 @@ func (h handler) New(version version.Version, migrationType string, migrationNam
 
 	fileName := fmt.Sprintf("%d_%s.go", version, neutralizedName)
 	extension := "sql"
-	if connection.IsMongo(migrationType) {
-		extension = "js"
-	}
 	migrateFileName := fmt.Sprintf("%d_%s_migrate.%s", version, neutralizedName, extension)
 	rollbackFileName := fmt.Sprintf("%d_%s_rollback.%s", version, neutralizedName, extension)
 
@@ -47,21 +44,23 @@ func (h handler) New(version version.Version, migrationType string, migrationNam
 		return err
 	}
 
-	// NOTE: create migrate script file
 	if err := os.MkdirAll(scriptsPath, os.ModePerm); err != nil {
 		return err
 	}
-	if err := helper.CreateEmptyFile(filepath.Join(scriptsPath, migrateFileName)); err != nil {
-		h.log.StandardLogger().Errorf("[%s] error creating empty migration file version: %d_%s.go: %s",
-			strings.ToUpper(migrationType), version, neutralizedName, err.Error())
-		return err
-	}
+	if !connection.IsMongo(migrationType) {
+		// NOTE: create migrate script file
+		if err := helper.CreateEmptyFile(filepath.Join(scriptsPath, migrateFileName)); err != nil {
+			h.log.StandardLogger().Errorf("[%s] error creating empty migration file version: %d_%s.go: %s",
+				strings.ToUpper(migrationType), version, neutralizedName, err.Error())
+			return err
+		}
 
-	// NOTE: create rollback script file
-	if err := helper.CreateEmptyFile(filepath.Join(scriptsPath, rollbackFileName)); err != nil {
-		h.log.StandardLogger().Errorf("[%s] error creating rollback migration file version: %d_%s.go: %s",
-			strings.ToUpper(migrationType), version, neutralizedName, err.Error())
-		return err
+		// NOTE: create rollback script file
+		if err := helper.CreateEmptyFile(filepath.Join(scriptsPath, rollbackFileName)); err != nil {
+			h.log.StandardLogger().Errorf("[%s] error creating rollback migration file version: %d_%s.go: %s",
+				strings.ToUpper(migrationType), version, neutralizedName, err.Error())
+			return err
+		}
 	}
 
 	// NOTE: create migrations initialization
