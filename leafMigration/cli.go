@@ -1,4 +1,4 @@
-package main
+package leafMigration
 
 import (
 	"context"
@@ -55,28 +55,11 @@ func (c Cli) Run() *cli.App {
 		command.Rollback(*c.migrator),
 		command.Check(*c.migrator),
 	}
+
 	if err := app.Run(os.Args); err != nil {
 		log.Error(leafLogger.BuildMessage(context.Background(), "Run Error: %+v",
 			leafLogger.WithAttr("error", err)))
 	}
 
 	return app
-}
-
-func main() {
-	leaf := New()
-	app := &cli.App{
-		Name:        leaf.Run().Name,
-		HelpName:    leaf.Run().HelpName,
-		Usage:       leaf.Run().Usage,
-		UsageText:   leaf.Run().UsageText,
-		Description: leaf.Run().Description,
-		Version:     leaf.Run().Version,
-		Commands:    leaf.Run().Commands,
-	}
-
-	if err := app.Run(os.Args); err != nil {
-		log.Error(leafLogger.BuildMessage(context.Background(), "Run Error: %+v",
-			leafLogger.WithAttr("error", err)))
-	}
 }

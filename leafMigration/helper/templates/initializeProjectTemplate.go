@@ -3,11 +3,14 @@ package templates
 const MainTemplate = `package main 
 
 import (
-	"github.com/paulusrobin/leaf-utilities/leafMigration"
+	migration "github.com/paulusrobin/leaf-utilities/leafMigration"
 )
 
 func main() {
-	migrationsCli.New().
+	migration.New().
+		// WithMySql(mysql.InitializeMigrations).
+		// WithMySql(postgre.InitializeMigrations).
+		// WithMySql(mongo.InitializeMigrations).
 		Run()
 }`
 

@@ -49,7 +49,7 @@ func Initialize(data InitializeProjectRequestDTO) error {
 	}
 	defer mainFile.Close()
 
-	err = main.Execute(mainFile, data)
+	err = main.Execute(mainFile, nil)
 	if err != nil {
 		return err
 	}
@@ -60,7 +60,7 @@ func Initialize(data InitializeProjectRequestDTO) error {
 	}
 	defer goModFile.Close()
 
-	err = goMod.Execute(goModFile, nil)
+	err = goMod.Execute(goModFile, data)
 	if err != nil {
 		return err
 	}
