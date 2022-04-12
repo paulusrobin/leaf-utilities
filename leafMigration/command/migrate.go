@@ -1,13 +1,11 @@
 package command
 
 import (
-	"context"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/handler"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/helper/connection"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/helper/version"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/logger"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/migrator"
-	leafLogger "github.com/paulusrobin/leaf-utilities/logger/logger"
 	"github.com/urfave/cli/v2"
 	"math"
 	"strings"
@@ -43,7 +41,7 @@ func Migrate(m migrator.Migrator) *cli.Command {
 		},
 		Action: func(c *cli.Context) error {
 			log := logger.GetLogger()
-			log.Info(leafLogger.BuildMessage(context.Background(), "starting migrations"))
+			log.StandardLogger().Infof("starting migrations")
 			ver := c.Uint64("version")
 			verbose := c.Bool("verbose")
 			specific := c.Bool("specific")

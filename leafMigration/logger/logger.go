@@ -14,7 +14,7 @@ func GetLogger() leafLogger.Logger {
 	var err error
 	once.Do(func() {
 		configuration := config.GetConfig()
-		formatter, err := leafLogrus.GetLoggerFormatter("TEXT")
+		formatter, err := leafLogrus.GetLoggerFormatter(configuration.LogFormatter)
 		if err != nil {
 			return
 		}

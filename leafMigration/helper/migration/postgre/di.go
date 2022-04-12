@@ -74,8 +74,8 @@ func (p *PostgreSQL) Check(verbose bool) error {
 
 	if err := p.sql.Model(&version.DataVersion{}).
 		Order("version asc").
-		Find(ctx, &p.versions); err != nil {
-		return err.Error()
+		Find(ctx, &p.versions).Error(); err != nil {
+		return err
 	}
 
 	p.executedVersion = make(map[uint64]version.DataVersion)
@@ -156,7 +156,7 @@ func (p *PostgreSQL) migrate(ctx *context.Context, m migration.Migration) error 
 		p.log.Error(leafLogger.BuildMessage(*ctx, "[%s] error execute migration version %d: %+v",
 			leafLogger.WithAttr("name", p.Name()),
 			leafLogger.WithAttr("version", m.Version()),
-			leafLogger.WithAttr("error", err.Error())))
+			leafLogger.WithAttr("error", err)))
 		return err
 	}
 
@@ -166,12 +166,12 @@ func (p *PostgreSQL) migrate(ctx *context.Context, m migration.Migration) error 
 		Name:        m.Name(),
 		ExecuteTime: time.Now().Format(time.RFC3339),
 	}
-	if err := p.sql.Create(*ctx, &newVersion); err != nil {
+	if err := p.sql.Create(*ctx, &newVersion).Error(); err != nil {
 		p.log.Error(leafLogger.BuildMessage(*ctx, "[%s] error execute migration version %d: %+v",
 			leafLogger.WithAttr("name", p.Name()),
 			leafLogger.WithAttr("version", m.Version()),
-			leafLogger.WithAttr("error", err.Error())))
-		return err.Error()
+			leafLogger.WithAttr("error", err)))
+		return err
 	} else {
 		p.versions = append(p.versions, newVersion)
 		p.executedVersion[newVersion.Version] = newVersion
@@ -228,23 +228,23 @@ func (p *PostgreSQL) rollback(ctx *context.Context, m migration.Migration) error
 		p.log.Error(leafLogger.BuildMessage(*ctx, "[%s] error execute rollback version %d: %+v",
 			leafLogger.WithAttr("name", p.Name()),
 			leafLogger.WithAttr("version", m.Version()),
-			leafLogger.WithAttr("error", err.Error())))
+			leafLogger.WithAttr("error", err)))
 		return err
 	}
 
 	newVersion := version.DataVersion{}
 	if err := p.sql.Table(version.MigrationTable).
 		Where("version = ?", m.Version()).
-		First(*ctx, &newVersion); err != nil {
-		return err.Error()
+		First(*ctx, &newVersion).Error(); err != nil {
+		return err
 	}
 
-	if err := p.sql.Delete(*ctx, &newVersion); err != nil {
+	if err := p.sql.Delete(*ctx, &newVersion).Error(); err != nil {
 		p.log.Error(leafLogger.BuildMessage(*ctx, "[%s] error execute rollback version %d: %+v",
 			leafLogger.WithAttr("name", p.Name()),
 			leafLogger.WithAttr("version", m.Version()),
-			leafLogger.WithAttr("error", err.Error())))
-		return err.Error()
+			leafLogger.WithAttr("error", err)))
+		return err
 	}
 	p.log.Info(leafLogger.BuildMessage(*ctx, "[%s] finish execute rollback version %d",
 		leafLogger.WithAttr("name", p.Name()),

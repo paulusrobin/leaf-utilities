@@ -1,10 +1,8 @@
 package command
 
 import (
-	"context"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/handler"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/logger"
-	leafLogger "github.com/paulusrobin/leaf-utilities/logger/logger"
 	"github.com/urfave/cli/v2"
 	"strings"
 )
@@ -23,7 +21,7 @@ func Init() *cli.Command {
 		Action: func(c *cli.Context) error {
 			log := logger.GetLogger()
 			project := strings.ToLower(c.String("project"))
-			log.Info(leafLogger.BuildMessage(context.Background(), "initializing project..."))
+			log.StandardLogger().Infof("[%s] initializing project...", project)
 			return handler.GetHandler().Init(project)
 		},
 	}
