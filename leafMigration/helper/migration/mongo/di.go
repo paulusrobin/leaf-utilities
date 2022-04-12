@@ -91,9 +91,9 @@ func (mgo *Mongo) Check(verbose bool) error {
 	if verbose {
 		for _, m := range mgo.migrations {
 			if _, ok := mgo.executedVersion[m.Version()]; ok {
-				log.Info(leafLogger.BuildMessage(ctx, "%d: UP", leafLogger.WithAttr("version", m.Version())))
+				log.StandardLogger().Infof("%d: UP", m.Version())
 			} else {
-				log.Info(leafLogger.BuildMessage(ctx, "%d: DOWN", leafLogger.WithAttr("version", m.Version())))
+				log.StandardLogger().Infof("%d: DOWN", m.Version())
 			}
 		}
 	}
@@ -114,9 +114,8 @@ func (mgo *Mongo) Versions() []version.DataVersion {
 func (mgo *Mongo) logMigrated() {
 	for _, v := range mgo.Versions() {
 		if _, ok := mgo.migrationFiles[v.Version]; !ok {
-			log.Warn(leafLogger.BuildMessage(context.Background(), "version %d - %s, already migrated but not available in current version",
-				leafLogger.WithAttr("version", v.Version),
-				leafLogger.WithAttr("name", v.Name)))
+			log.StandardLogger().Warnf("version %d - %s, already migrated but not available in current version",
+				v.Version, v.Name)
 		}
 	}
 }
@@ -150,14 +149,10 @@ func (mgo *Mongo) Migrate(ver version.Version, specific bool) error {
 }
 
 func (mgo *Mongo) migrate(ctx *context.Context, m migration.Migration) error {
-	mgo.log.Info(leafLogger.BuildMessage(*ctx, "[%s] execute migration version %d",
-		leafLogger.WithAttr("name", mgo.Name()),
-		leafLogger.WithAttr("version", m.Version())))
+	mgo.log.StandardLogger().Infof("[%s] execute migration version %d", mgo.Name(), m.Version())
 	if err := m.Migrate(); err != nil {
-		mgo.log.Error(leafLogger.BuildMessage(*ctx, "[%s] error execute migration version %d: %+v",
-			leafLogger.WithAttr("name", mgo.Name()),
-			leafLogger.WithAttr("version", m.Version()),
-			leafLogger.WithAttr("error", err.Error())))
+		mgo.log.StandardLogger().Errorf("[%s] error execute migration version %d: %+v",
+			mgo.Name(), m.Version(), err.Error())
 		return err
 	}
 
@@ -175,9 +170,7 @@ func (mgo *Mongo) migrate(ctx *context.Context, m migration.Migration) error {
 		mgo.versions = append(mgo.versions, newVersion)
 		mgo.executedVersion[newVersion.Version] = newVersion
 	}
-	mgo.log.Info(leafLogger.BuildMessage(*ctx, "[%s] finish execute migration version %d",
-		leafLogger.WithAttr("name", mgo.Name()),
-		leafLogger.WithAttr("version", m.Version())))
+	mgo.log.StandardLogger().Infof("[%s] finish execute migration version %d", mgo.Name(), m.Version())
 	return nil
 }
 
@@ -218,28 +211,20 @@ func (mgo *Mongo) Rollback(ver version.Version, specific bool) error {
 }
 
 func (mgo *Mongo) rollback(ctx *context.Context, m migration.Migration) error {
-	mgo.log.Info(leafLogger.BuildMessage(*ctx, "[%s] execute rollback version %d",
-		leafLogger.WithAttr("name", mgo.Name()),
-		leafLogger.WithAttr("version", m.Version())))
+	mgo.log.StandardLogger().Infof("[%s] execute rollback version %d", mgo.Name(), m.Version())
 	if err := m.Rollback(); err != nil {
-		mgo.log.Error(leafLogger.BuildMessage(*ctx, "[%s] error execute rollback version %d: %+v",
-			leafLogger.WithAttr("name", mgo.Name()),
-			leafLogger.WithAttr("version", m.Version()),
-			leafLogger.WithAttr("error", err.Error())))
+		mgo.log.StandardLogger().Errorf("[%s] error execute rollback version %d: %+v", mgo.Name(), m.Version(),
+			err.Error())
 		return err
 	}
 
 	filter := bson.M{"id": fmt.Sprintf("%d_%s", m.Version(), m.Name())}
 	_, err := mgo.nosql.DB().Collection(version.MigrationTable).DeleteOne(*ctx, filter)
 	if err != nil {
-		mgo.log.Error(leafLogger.BuildMessage(*ctx, "[%s] error execute rollback version %d: %+v",
-			leafLogger.WithAttr("name", mgo.Name()),
-			leafLogger.WithAttr("version", m.Version()),
-			leafLogger.WithAttr("error", err.Error())))
+		mgo.log.StandardLogger().Errorf("[%s] error execute rollback version %d: %+v", mgo.Name(), m.Version(),
+			err.Error())
 		return err
 	}
-	mgo.log.Info(leafLogger.BuildMessage(*ctx, "[%s] finish execute rollback version %d",
-		leafLogger.WithAttr("name", mgo.Name()),
-		leafLogger.WithAttr("version", m.Version())))
+	mgo.log.StandardLogger().Infof("[%s] finish execute rollback version %d", mgo.Name(), m.Version())
 	return nil
 }

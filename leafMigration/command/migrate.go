@@ -41,7 +41,7 @@ func Migrate(m migrator.Migrator) *cli.Command {
 		},
 		Action: func(c *cli.Context) error {
 			log := logger.GetLogger()
-			log.StandardLogger().Infof("starting migrations")
+			log.StandardLogger().Info("starting migrations")
 			ver := c.Uint64("version")
 			verbose := c.Bool("verbose")
 			specific := c.Bool("specific")

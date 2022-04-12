@@ -1,13 +1,11 @@
 package command
 
 import (
-	"context"
 	"fmt"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/handler"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/helper/connection"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/helper/version"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/logger"
-	leafLogger "github.com/paulusrobin/leaf-utilities/logger/logger"
 	"github.com/pkg/errors"
 	"github.com/urfave/cli/v2"
 	"strconv"
@@ -48,8 +46,7 @@ func New() *cli.Command {
 				return errors.New("invalid migration type [mysql | mongo | postgre]")
 			}
 
-			log.Info(leafLogger.BuildMessage(context.Background(), "start creating new %s migrations file",
-				leafLogger.WithAttr("migrationType", migrationType)))
+			log.StandardLogger().Infof("start creating new %s migrations file", migrationType)
 
 			now := time.Now()
 			year, month, date := now.Date()

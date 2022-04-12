@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"context"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/config"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/helper/connection"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/helper/migration"
@@ -76,8 +75,7 @@ func (h *handler) initializeConnection(m migrator.Migrator, types []string) erro
 func (h *handler) addConnections(m migrator.Migrator, f func(m migrator.Migrator) (migration.Tool, error)) {
 	conn, err := f(m)
 	if err != nil {
-		log.Warn(leafLogger.BuildMessage(context.Background(), "failed add connection: %s",
-			leafLogger.WithAttr("error", err.Error())))
+		log.StandardLogger().Warnf("failed add connection: %s", err.Error())
 	} else {
 		h.connections = append(h.connections, conn)
 	}

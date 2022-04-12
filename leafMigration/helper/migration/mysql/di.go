@@ -110,9 +110,8 @@ func (s *MySQL) Versions() []version.DataVersion {
 func (s *MySQL) logMigrated() {
 	for _, v := range s.Versions() {
 		if _, ok := s.migrationFiles[v.Version]; !ok {
-			log.StandardLogger().Warn(leafLogger.BuildMessage(nil, "version %d - %s, already migrated but not available in current version",
-				leafLogger.WithAttr("version", v.Version),
-				leafLogger.WithAttr("name", v.Name)))
+			log.StandardLogger().Warnf("version %d - %s, already migrated but not available in current version",
+				v.Version, v.Name)
 		}
 	}
 }
@@ -148,14 +147,10 @@ func (s *MySQL) Migrate(ver version.Version, specific bool) error {
 }
 
 func (s *MySQL) migrate(ctx *context.Context, m migration.Migration) error {
-	s.log.Info(leafLogger.BuildMessage(*ctx, "[%s] execute migration version %d: %+v",
-		leafLogger.WithAttr("name", s.Name()),
-		leafLogger.WithAttr("version", m.Version())))
+	s.log.StandardLogger().Infof("[%s] execute migration version %d: %+v", s.Name(), m.Version())
 	if err := m.Migrate(); err != nil {
-		s.log.Error(leafLogger.BuildMessage(*ctx, "[%s] error execute migration version %d: %+v",
-			leafLogger.WithAttr("name", s.Name()),
-			leafLogger.WithAttr("version", m.Version()),
-			leafLogger.WithAttr("error", err)))
+		s.log.StandardLogger().Errorf("[%s] error execute migration version %d: %+v", s.Name(), m.Version(),
+			err.Error())
 		return err
 	}
 
@@ -166,18 +161,14 @@ func (s *MySQL) migrate(ctx *context.Context, m migration.Migration) error {
 		ExecuteTime: time.Now().Format(time.RFC3339),
 	}
 	if err := s.sql.Create(*ctx, newVersion).Error(); err != nil {
-		s.log.Error(leafLogger.BuildMessage(*ctx, "[%s] error execute migration version %d: %+v",
-			leafLogger.WithAttr("name", s.Name()),
-			leafLogger.WithAttr("version", m.Version()),
-			leafLogger.WithAttr("error", err)))
+		s.log.StandardLogger().Errorf("[%s] error execute migration version %d: %+v", s.Name(), m.Version(),
+			err.Error())
 		return err
 	} else {
 		s.versions = append(s.versions, newVersion)
 		s.executedVersion[newVersion.Version] = newVersion
 	}
-	s.log.Info(leafLogger.BuildMessage(*ctx, "[%s] finish execute migration version %d",
-		leafLogger.WithAttr("name", s.Name()),
-		leafLogger.WithAttr("version", m.Version())))
+	s.log.StandardLogger().Infof("[%s] finish execute migration version %d", s.Name(), m.Version())
 	return nil
 }
 
@@ -220,14 +211,10 @@ func (s *MySQL) Rollback(ver version.Version, specific bool) error {
 }
 
 func (s *MySQL) rollback(ctx *context.Context, m migration.Migration) error {
-	s.log.Info(leafLogger.BuildMessage(*ctx, "[%s] execute rollback version %d",
-		leafLogger.WithAttr("name", s.Name()),
-		leafLogger.WithAttr("version", m.Version())))
+	s.log.StandardLogger().Infof("[%s] execute rollback version %d", s.Name(), m.Version())
 	if err := m.Rollback(); err != nil {
-		s.log.Error(leafLogger.BuildMessage(*ctx, "[%s] error execute rollback version %d: %+v",
-			leafLogger.WithAttr("name", s.Name()),
-			leafLogger.WithAttr("version", m.Version()),
-			leafLogger.WithAttr("error", err)))
+		s.log.StandardLogger().Errorf("[%s] error execute rollback version %d: %+v", s.Name(), m.Version(),
+			err.Error())
 		return err
 	}
 
@@ -239,14 +226,10 @@ func (s *MySQL) rollback(ctx *context.Context, m migration.Migration) error {
 	}
 
 	if err := s.sql.Delete(*ctx, &newVersion).Error(); err != nil {
-		s.log.Error(leafLogger.BuildMessage(*ctx, "[%s] error execute rollback version %d: %+v",
-			leafLogger.WithAttr("name", s.Name()),
-			leafLogger.WithAttr("version", m.Version()),
-			leafLogger.WithAttr("error", err)))
+		s.log.StandardLogger().Errorf("[%s] error execute rollback version %d: %+v", s.Name(), m.Version(),
+			err.Error())
 		return err
 	}
-	s.log.Info(leafLogger.BuildMessage(*ctx, "[%s] finish execute rollback version %d",
-		leafLogger.WithAttr("name", s.Name()),
-		leafLogger.WithAttr("version", m.Version())))
+	s.log.StandardLogger().Infof("[%s] finish execute rollback version %d", s.Name(), m.Version())
 	return nil
 }

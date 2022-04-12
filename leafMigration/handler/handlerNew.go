@@ -1,13 +1,11 @@
 package handler
 
 import (
-	"context"
 	"fmt"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/helper"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/helper/connection"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/helper/migration"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/helper/version"
-	leafLogger "github.com/paulusrobin/leaf-utilities/logger/logger"
 	"github.com/pkg/errors"
 	"os"
 	"path/filepath"
@@ -32,10 +30,8 @@ func (h handler) New(version version.Version, migrationType string, migrationNam
 	rollbackFileName := fmt.Sprintf("%d_%s_rollback.%s", version, neutralizedName, extension)
 
 	// NOTE: create migrations file
-	h.log.Info(leafLogger.BuildMessage(context.Background(), "[%s] creating migration file version: %d_%s.go",
-		leafLogger.WithAttr("migrationType", strings.ToUpper(migrationType)),
-		leafLogger.WithAttr("version", version),
-		leafLogger.WithAttr("neutralizedName", neutralizedName)))
+	h.log.StandardLogger().Infof("[%s] creating migration file version: %d_%s.go", strings.ToUpper(migrationType),
+		version, neutralizedName)
 	if err := os.MkdirAll(migrationsPath, os.ModePerm); err != nil {
 		return err
 	}
@@ -46,11 +42,8 @@ func (h handler) New(version version.Version, migrationType string, migrationNam
 			MigrationName: migrationName,
 			IsMongo:       connection.IsMongo(migrationType),
 		}); err != nil {
-		h.log.Error(leafLogger.BuildMessage(context.Background(), "[%s] error creating migration file version: %d_%s.go: %s",
-			leafLogger.WithAttr("migrationType", strings.ToUpper(migrationType)),
-			leafLogger.WithAttr("version", version),
-			leafLogger.WithAttr("neutralizedName", neutralizedName),
-			leafLogger.WithAttr("error", err.Error())))
+		h.log.StandardLogger().Errorf("[%s] error creating migration file version: %d_%s.go: %s",
+			strings.ToUpper(migrationType), version, neutralizedName, err.Error())
 		return err
 	}
 
@@ -59,29 +52,21 @@ func (h handler) New(version version.Version, migrationType string, migrationNam
 		return err
 	}
 	if err := helper.CreateEmptyFile(filepath.Join(scriptsPath, migrateFileName)); err != nil {
-		h.log.Error(leafLogger.BuildMessage(context.Background(), "[%s] error creating migrate migration file version: %d_%s.go: %s",
-			leafLogger.WithAttr("migrationType", strings.ToUpper(migrationType)),
-			leafLogger.WithAttr("version", version),
-			leafLogger.WithAttr("neutralizedName", neutralizedName),
-			leafLogger.WithAttr("error", err.Error())))
+		h.log.StandardLogger().Errorf("[%s] error creating empty migration file version: %d_%s.go: %s",
+			strings.ToUpper(migrationType), version, neutralizedName, err.Error())
 		return err
 	}
 
 	// NOTE: create rollback script file
 	if err := helper.CreateEmptyFile(filepath.Join(scriptsPath, rollbackFileName)); err != nil {
-		h.log.Error(leafLogger.BuildMessage(context.Background(), "[%s] error creating rollback migration file version: %d_%s.go: %s",
-			leafLogger.WithAttr("migrationType", strings.ToUpper(migrationType)),
-			leafLogger.WithAttr("version", version),
-			leafLogger.WithAttr("neutralizedName", neutralizedName),
-			leafLogger.WithAttr("error", err.Error())))
+		h.log.StandardLogger().Errorf("[%s] error creating rollback migration file version: %d_%s.go: %s",
+			strings.ToUpper(migrationType), version, neutralizedName, err.Error())
 		return err
 	}
 
 	// NOTE: create migrations initialization
-	h.log.Info(leafLogger.BuildMessage(context.Background(), "[%s] initialize migration file version: %d_%s.go",
-		leafLogger.WithAttr("migrationType", strings.ToUpper(migrationType)),
-		leafLogger.WithAttr("version", version),
-		leafLogger.WithAttr("neutralizedName", neutralizedName)))
+	h.log.StandardLogger().Infof("[%s] initialize migration file version: %d_%s.go",
+		strings.ToUpper(migrationType), version, neutralizedName)
 	files := migration.LoadMigrations(migrationType)
 	if err := helper.CreateInitialization(filepath.Join(migrationsPath, "initialize.go"),
 		helper.InitializeRequestDTO{
@@ -89,17 +74,12 @@ func (h handler) New(version version.Version, migrationType string, migrationNam
 			IsMongo:       connection.IsMongo(migrationType),
 			Versions:      files,
 		}); err != nil {
-		h.log.Error(leafLogger.BuildMessage(context.Background(), "[%s] error initialize migration file version: %d_%s.go: %s",
-			leafLogger.WithAttr("migrationType", strings.ToUpper(migrationType)),
-			leafLogger.WithAttr("version", version),
-			leafLogger.WithAttr("neutralizedName", neutralizedName),
-			leafLogger.WithAttr("error", err.Error())))
+		h.log.StandardLogger().Errorf("[%s] error initialize migration file version: %d_%s.go: %s",
+			strings.ToUpper(migrationType), version, neutralizedName, err.Error())
 		return err
 	}
 
-	h.log.Info(leafLogger.BuildMessage(context.Background(), "[%s] finish migration file version: %d_%s.go",
-		leafLogger.WithAttr("migrationType", strings.ToUpper(migrationType)),
-		leafLogger.WithAttr("version", version),
-		leafLogger.WithAttr("neutralizedName", neutralizedName)))
+	h.log.StandardLogger().Infof("[%s] finish migration file version: %d_%s.go",
+		strings.ToUpper(migrationType), version, neutralizedName)
 	return nil
 }

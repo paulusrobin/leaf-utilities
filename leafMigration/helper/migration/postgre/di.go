@@ -86,9 +86,9 @@ func (p *PostgreSQL) Check(verbose bool) error {
 	if verbose {
 		for _, m := range p.migrations {
 			if _, ok := p.executedVersion[m.Version()]; ok {
-				log.Info(leafLogger.BuildMessage(ctx, "%d: UP", leafLogger.WithAttr("version", m.Version())))
+				log.StandardLogger().Infof("%d: UP", m.Version())
 			} else {
-				log.Info(leafLogger.BuildMessage(ctx, "%d: DOWN", leafLogger.WithAttr("version", m.Version())))
+				log.StandardLogger().Infof("%d: DOWN", m.Version())
 			}
 		}
 	}
@@ -109,9 +109,8 @@ func (p *PostgreSQL) Versions() []version.DataVersion {
 func (p *PostgreSQL) logMigrated() {
 	for _, v := range p.Versions() {
 		if _, ok := p.migrationFiles[v.Version]; !ok {
-			log.Warn(leafLogger.BuildMessage(context.Background(), "version %d - %s, already migrated but not available in current version",
-				leafLogger.WithAttr("version", v.Version),
-				leafLogger.WithAttr("name", v.Name)))
+			log.StandardLogger().Warnf("version %d - %s, already migrated but not available in current version",
+				v.Version, v.Name)
 		}
 	}
 }
@@ -149,14 +148,10 @@ func (p *PostgreSQL) Migrate(ver version.Version, specific bool) error {
 }
 
 func (p *PostgreSQL) migrate(ctx *context.Context, m migration.Migration) error {
-	p.log.Info(leafLogger.BuildMessage(*ctx, "[%s] execute rollback version %d",
-		leafLogger.WithAttr("name", p.Name()),
-		leafLogger.WithAttr("version", m.Version())))
+	p.log.StandardLogger().Infof("[%s] execute migration version %d: %+v", p.Name(), m.Version())
 	if err := m.Migrate(); err != nil {
-		p.log.Error(leafLogger.BuildMessage(*ctx, "[%s] error execute migration version %d: %+v",
-			leafLogger.WithAttr("name", p.Name()),
-			leafLogger.WithAttr("version", m.Version()),
-			leafLogger.WithAttr("error", err)))
+		p.log.StandardLogger().Errorf("[%s] error execute migration version %d: %+v", p.Name(), m.Version(),
+			err.Error())
 		return err
 	}
 
@@ -167,18 +162,14 @@ func (p *PostgreSQL) migrate(ctx *context.Context, m migration.Migration) error 
 		ExecuteTime: time.Now().Format(time.RFC3339),
 	}
 	if err := p.sql.Create(*ctx, &newVersion).Error(); err != nil {
-		p.log.Error(leafLogger.BuildMessage(*ctx, "[%s] error execute migration version %d: %+v",
-			leafLogger.WithAttr("name", p.Name()),
-			leafLogger.WithAttr("version", m.Version()),
-			leafLogger.WithAttr("error", err)))
+		p.log.StandardLogger().Errorf("[%s] error execute migration version %d: %+v", p.Name(), m.Version(),
+			err.Error())
 		return err
 	} else {
 		p.versions = append(p.versions, newVersion)
 		p.executedVersion[newVersion.Version] = newVersion
 	}
-	p.log.Info(leafLogger.BuildMessage(*ctx, "[%s] finish execute migration version %d",
-		leafLogger.WithAttr("name", p.Name()),
-		leafLogger.WithAttr("version", m.Version())))
+	p.log.StandardLogger().Infof("[%s] finish execute migration version %d", p.Name(), m.Version())
 	return nil
 }
 
@@ -221,14 +212,10 @@ func (p *PostgreSQL) Rollback(ver version.Version, specific bool) error {
 }
 
 func (p *PostgreSQL) rollback(ctx *context.Context, m migration.Migration) error {
-	p.log.Info(leafLogger.BuildMessage(*ctx, "[%s] execute rollback version %d",
-		leafLogger.WithAttr("name", p.Name()),
-		leafLogger.WithAttr("version", m.Version())))
+	p.log.StandardLogger().Infof("[%s] execute rollback version %d", p.Name(), m.Version())
 	if err := m.Rollback(); err != nil {
-		p.log.Error(leafLogger.BuildMessage(*ctx, "[%s] error execute rollback version %d: %+v",
-			leafLogger.WithAttr("name", p.Name()),
-			leafLogger.WithAttr("version", m.Version()),
-			leafLogger.WithAttr("error", err)))
+		p.log.StandardLogger().Errorf("[%s] error execute rollback version %d: %+v", p.Name(), m.Version(),
+			err.Error())
 		return err
 	}
 
@@ -240,14 +227,10 @@ func (p *PostgreSQL) rollback(ctx *context.Context, m migration.Migration) error
 	}
 
 	if err := p.sql.Delete(*ctx, &newVersion).Error(); err != nil {
-		p.log.Error(leafLogger.BuildMessage(*ctx, "[%s] error execute rollback version %d: %+v",
-			leafLogger.WithAttr("name", p.Name()),
-			leafLogger.WithAttr("version", m.Version()),
-			leafLogger.WithAttr("error", err)))
+		p.log.StandardLogger().Errorf("[%s] error execute rollback version %d: %+v", p.Name(), m.Version(),
+			err.Error())
 		return err
 	}
-	p.log.Info(leafLogger.BuildMessage(*ctx, "[%s] finish execute rollback version %d",
-		leafLogger.WithAttr("name", p.Name()),
-		leafLogger.WithAttr("version", m.Version())))
+	p.log.StandardLogger().Infof("[%s] finish execute rollback version %d", p.Name(), m.Version())
 	return nil
 }
