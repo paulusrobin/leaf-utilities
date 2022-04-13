@@ -142,7 +142,7 @@ func (p *pubSub) Close() error {
 	return p.client.Close()
 }
 
-func New(options ...Option) (leafMQ.MessagingQueue, error) {
+func New(options ...Option) (leafMQ.MessageQueue, error) {
 	opt := defaultOption()
 
 	for _, option := range options {

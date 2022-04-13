@@ -133,7 +133,7 @@ func (k *kafkaMultipleClient) Consumer() leafMQ.Consumer {
 	return k.consumer
 }
 
-func NewMultiple(multiplier int, options ...Option) (leafMQ.MessagingQueue, error) {
+func NewMultiple(multiplier int, options ...Option) (leafMQ.MessageQueue, error) {
 	var (
 		consumers  = make([]leafMQ.Consumer, multiplier)
 		publishers = make([]leafMQ.Publisher, multiplier)

@@ -204,6 +204,8 @@ github.com/paulusrobin/leaf-utilities/mandatory v0.0.0-20220322085140-66e0cded62
 github.com/paulusrobin/leaf-utilities/mandatory v0.0.0-20220322085140-66e0cded624f/go.mod h1:JXZqLWe1dypTYc48vGyMvN6uZ3o/1y7CNUQ/NUjnnHE=
 github.com/paulusrobin/leaf-utilities/messageQueue/messageQueue v0.0.0-20220225024802-3586e18aac4a h1:15VkVBL9DT1FEE5JAQLfL7UmUYFG6+XQffm4hrdP1OU=
 github.com/paulusrobin/leaf-utilities/messageQueue/messageQueue v0.0.0-20220225024802-3586e18aac4a/go.mod h1:0YRHiJbcA+73/kWnmfoiq0v/TaOHreeCp5kdaSw6IpQ=
+github.com/paulusrobin/leaf-utilities/messageQueue/messageQueue v0.0.0-20220413092039-e348133f1427 h1:nHg/4Y5C9Z8eXRBY/MpI5WF4yXRsdcfpmj6mYtHbRSE=
+github.com/paulusrobin/leaf-utilities/messageQueue/messageQueue v0.0.0-20220413092039-e348133f1427/go.mod h1:d+u37FLv4vyLPcO9T07alIHirAQufitJ93kqGKufGDA=
 github.com/paulusrobin/leaf-utilities/slack v0.0.0-20220407083605-368744159992 h1:d+iL2XEStv7uIaRxb2lPkP/ZBDEMThkgE6WlaEjLLVM=
 github.com/paulusrobin/leaf-utilities/slack v0.0.0-20220407083605-368744159992/go.mod h1:odTNMYOkmi5NTK43pVK4go55S0JmKwUHUsjaW8PPee4=
 github.com/paulusrobin/leaf-utilities/time v0.0.0-20220224085244-722410f9260e/go.mod h1:Ipp7cbFJhZ07nJEOe0k8etmTcWXrJkXZlLHl6GEGxKA=

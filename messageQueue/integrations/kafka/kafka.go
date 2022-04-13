@@ -24,7 +24,7 @@ func (k *kafka) Consumer() leafMQ.Consumer {
 	return k
 }
 
-func New(options ...Option) (leafMQ.MessagingQueue, error) {
+func New(options ...Option) (leafMQ.MessageQueue, error) {
 	var err error
 
 	option := defaultOption()
