@@ -1,11 +1,11 @@
 package leafHeimdall
 
 import (
-	leafWebClient "github.com/enricodg/leaf-utilities/webClient/webClient"
+	leafCircuitBreaker "github.com/enricodg/leaf-utilities/webClient/webClient/circuitBreaker"
 	"github.com/gojek/heimdall/v7"
 )
 
-func convertToHeimdallRetryBackoff(retryBackoff leafWebClient.RetryBackoffOption) heimdall.Retriable {
+func convertToHeimdallRetryBackoff(retryBackoff leafCircuitBreaker.RetryBackoffOption) heimdall.Retriable {
 	var backoff heimdall.Backoff
 	switch retryBackoff.GetType() {
 	case 1:
