@@ -1,8 +1,8 @@
-package model
+package leafModel
 
 import (
 	"fmt"
-	"github.com/paulusrobin/leaf-example/pkg/constant/privilege"
+	leafPrivilege "github.com/paulusrobin/leaf-utilities/common/constants/privilege"
 	"strings"
 )
 
@@ -20,7 +20,7 @@ type (
 
 func (e HealthEndpoint) String() string {
 	if e.IsDocumentation() {
-		e.Verify = privilege.Granted
+		e.Verify = leafPrivilege.Granted
 	}
 	return fmt.Sprintf("[%s] %s %s", e.Method, e.Path, e.Verify)
 }
@@ -32,7 +32,7 @@ func (e HealthEndpoint) IsDocumentation() bool {
 func (e HealthEndpoints) String() []string {
 	var eps = make([]string, 0)
 	for _, ep := range e {
-		if !privilege.Exist(ep.Verify) {
+		if !leafPrivilege.Exist(ep.Verify) {
 			continue
 		}
 		eps = append(eps, ep.String())
@@ -43,7 +43,7 @@ func (e HealthEndpoints) String() []string {
 func (e HealthEndpoints) Verify() HealthEndpoints {
 	var eps = make(HealthEndpoints, 0)
 	for _, ep := range e {
-		if !privilege.Exist(ep.Verify) {
+		if !leafPrivilege.Exist(ep.Verify) {
 			continue
 		}
 		eps = append(eps, ep)
