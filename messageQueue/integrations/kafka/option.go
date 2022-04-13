@@ -3,7 +3,7 @@ package leafKafka
 import (
 	"fmt"
 	"github.com/Shopify/sarama"
-	leafZap "github.com/paulusrobin/leaf-utilities/logger/integrations/zap"
+	leafLogrus "github.com/paulusrobin/leaf-utilities/logger/integrations/logrus"
 	leafLogger "github.com/paulusrobin/leaf-utilities/logger/logger"
 	"time"
 )
@@ -65,7 +65,7 @@ func defaultOption() option {
 		producerRetryMax:     DefaultProducerRetryMax,
 		producerRetryBackOff: DefaultProducerRetryBackoff,
 		kafkaVersion:         "",
-		logger:               leafZap.DefaultLog(),
+		logger:               leafLogrus.DefaultLog(),
 		withoutProducer:      false,
 		withoutConsumer:      false,
 		slackNotification: SlackNotification{
