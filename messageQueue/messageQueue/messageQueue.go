@@ -1,6 +1,6 @@
 package leafMQ
 
-type MessagingQueue interface {
+type MessageQueue interface {
 	Publisher
 	Consumer
 	Publisher() Publisher

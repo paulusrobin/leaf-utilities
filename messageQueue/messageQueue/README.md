@@ -2,7 +2,7 @@
 
 ## Message Queue Interface
 ```go
-MessagingQueue interface{
+MessageQueue interface{
     Publish(ctx context.Context, topic string, msg Message) error	
     Use(middlewareFunc ...MiddlewareFunc)
     Listen()

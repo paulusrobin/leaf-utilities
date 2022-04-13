@@ -27,6 +27,6 @@ func (n noopQueue) Publisher() Publisher { return n }
 
 func (n noopQueue) Consumer() Consumer { return n }
 
-func NoopQueue() MessagingQueue {
+func NoopQueue() MessageQueue {
 	return &noopQueue{}
 }
