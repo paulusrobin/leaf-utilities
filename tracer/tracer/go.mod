@@ -1,3 +1,3 @@
 module github.com/paulusrobin/leaf-utilities/tracer/tracer
 
-go 1.16
+go 1.18

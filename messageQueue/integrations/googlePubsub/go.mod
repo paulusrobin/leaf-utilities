@@ -1,6 +1,6 @@
 module github.com/paulusrobin/leaf-utilities/messagingQueue/integrations/googlePubsub
 
-go 1.16
+go 1.18
 
 require (
 	cloud.google.com/go/pubsub v1.19.0

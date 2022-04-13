@@ -1,3 +1,3 @@
 module github.com/enricodg/leaf-utilities/cache/cache
 
-go 1.16
+go 1.18

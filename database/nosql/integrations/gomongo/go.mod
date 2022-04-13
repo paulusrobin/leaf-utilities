@@ -1,6 +1,6 @@
 module github.com/paulusrobin/leaf-utilities/database/nosql/integrations/gomongo
 
-go 1.16
+go 1.18
 
 require (
 	github.com/newrelic/go-agent/v3 v3.15.2

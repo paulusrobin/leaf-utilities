@@ -1,6 +1,6 @@
 module github.com/paulusrobin/leaf-utilities/messageQueue/messageQueue
 
-go 1.16
+go 1.18
 
 require (
 	github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220223082454-bed3f0e370e7

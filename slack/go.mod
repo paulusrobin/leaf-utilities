@@ -1,6 +1,6 @@
 module github.com/paulusrobin/leaf-utilities/slack
 
-go 1.16
+go 1.18
 
 require (
 	github.com/enricodg/leaf-utilities/webClient/webClient v0.0.0-20220331101308-358b5b99729f

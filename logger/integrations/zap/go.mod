@@ -1,6 +1,6 @@
 module github.com/paulusrobin/leaf-utilities/logger/integrations/zap
 
-go 1.16
+go 1.18
 
 require (
 	github.com/labstack/gommon v0.3.1

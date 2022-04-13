@@ -1,6 +1,6 @@
 module github.com/enricodg/leaf-utilities/database/sql/integrations/gorm/mysql
 
-go 1.16
+go 1.18
 
 require (
 	github.com/enricodg/leaf-utilities/database/sql/integrations/gorm v0.0.0-20220331094736-b3cb24b8d0aa

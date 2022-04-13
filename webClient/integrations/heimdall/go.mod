@@ -1,6 +1,6 @@
 module github.com/paulusrobin/leaf-utilities/webClient/integrations/heimdall
 
-go 1.16
+go 1.18
 
 require (
 	github.com/enricodg/leaf-utilities/webClient/webClient v0.0.0-20220323123929-d76b63bf7863

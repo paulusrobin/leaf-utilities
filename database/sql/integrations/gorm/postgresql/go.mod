@@ -1,6 +1,6 @@
 module github.com/enricodg/leaf-utilities/database/sql/integrations/gorm/postgresql
 
-go 1.16
+go 1.18
 
 require (
 	github.com/enricodg/leaf-utilities/database/sql/integrations/gorm v0.0.0-20220331100756-a84fbacdf450

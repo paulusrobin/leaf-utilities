@@ -1,6 +1,6 @@
 module github.com/paulusrobin/leaf-utilities/tracer/integrations/sentry
 
-go 1.16
+go 1.18
 
 require (
 	github.com/getsentry/sentry-go v0.13.0

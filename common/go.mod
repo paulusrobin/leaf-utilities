@@ -1,6 +1,6 @@
 module github.com/paulusrobin/leaf-utilities/common
 
-go 1.16
+go 1.18
 
 require (
 	github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220224085244-722410f9260e
