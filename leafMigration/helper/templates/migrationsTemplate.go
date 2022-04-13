@@ -20,7 +20,7 @@ func (m *migration_{{.Version}}) Version() uint64 {
 
 // NOTE: DO NOT CHANGE MIGRATION Name
 func (m *migration_{{.Version}}) Name() string {
-	return "{{.Version}}_{{.MigrationName}}"
+	return "{{.MigrationName}}"
 }
 
 func (m *migration_{{.Version}}) Migrate() error {
