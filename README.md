@@ -26,10 +26,10 @@ Supporting utilities for [Leaf Framework](https://github.com/paulusrobin/leaf)
     - [x] [Redis](cache/integrations/redis)
     - [x] [Memcache](cache/integrations/memcache)
 - [x] [Application Runner](appRunner)
-    - [ ] HTTP
+    - [x] [HTTP](appRunner/server/http.go)
     - [ ] gRPC
-    - [ ] Messaging Queue
-    - [ ] Worker
+    - [x] [Messaging Queue](appRunner/server/messaging.go)
+    - [x] [Worker](appRunner/server/worker.go)
 - [x] [Web Client](webClient/webClient)
     - [x] [Heimdall + Circuit Breaker](webClient/integrations/heimdall)
 - [ ] gRPC Client
