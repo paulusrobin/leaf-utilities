@@ -1,4 +1,4 @@
-module github.com/enricodg/leaf-utilities/appRunner
+module github.com/paulusrobin/leaf-utilities/appRunner
 
 go 1.18
 

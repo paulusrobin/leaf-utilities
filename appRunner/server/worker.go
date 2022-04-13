@@ -1,7 +1,7 @@
 package leafServer
 
 import (
-	leafWorker "github.com/enricodg/leaf-utilities/appRunner/worker"
+	leafWorker "github.com/paulusrobin/leaf-utilities/appRunner/worker"
 	"os"
 	"time"
 )

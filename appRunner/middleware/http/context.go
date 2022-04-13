@@ -3,9 +3,9 @@ package leafHttpMiddleware
 import (
 	"bytes"
 	"fmt"
-	leafMiddleware "github.com/enricodg/leaf-utilities/appRunner/middleware"
-	leafHttpResponse "github.com/enricodg/leaf-utilities/appRunner/response/http"
 	"github.com/labstack/echo/v4"
+	leafMiddleware "github.com/paulusrobin/leaf-utilities/appRunner/middleware"
+	leafHttpResponse "github.com/paulusrobin/leaf-utilities/appRunner/response/http"
 	leafHeader "github.com/paulusrobin/leaf-utilities/common/header"
 	"github.com/paulusrobin/leaf-utilities/encoding/json"
 	leafLogger "github.com/paulusrobin/leaf-utilities/logger/logger"

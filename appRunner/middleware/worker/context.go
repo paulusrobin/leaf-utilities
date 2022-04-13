@@ -3,8 +3,8 @@ package leafWorkerMiddleware
 import (
 	"context"
 	"fmt"
-	leafMiddleware "github.com/enricodg/leaf-utilities/appRunner/middleware"
-	leafWorker "github.com/enricodg/leaf-utilities/appRunner/worker"
+	leafMiddleware "github.com/paulusrobin/leaf-utilities/appRunner/middleware"
+	leafWorker "github.com/paulusrobin/leaf-utilities/appRunner/worker"
 	leafLogger "github.com/paulusrobin/leaf-utilities/logger/logger"
 	leafMandatory "github.com/paulusrobin/leaf-utilities/mandatory"
 	leafTime "github.com/paulusrobin/leaf-utilities/time"

@@ -3,7 +3,7 @@ package leafMessagingMiddleware
 import (
 	"context"
 	"fmt"
-	leafMiddleware "github.com/enricodg/leaf-utilities/appRunner/middleware"
+	leafMiddleware "github.com/paulusrobin/leaf-utilities/appRunner/middleware"
 	leafHeader "github.com/paulusrobin/leaf-utilities/common/header"
 	leafLogger "github.com/paulusrobin/leaf-utilities/logger/logger"
 	leafMandatory "github.com/paulusrobin/leaf-utilities/mandatory"
