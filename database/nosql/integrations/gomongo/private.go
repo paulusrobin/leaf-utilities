@@ -2,6 +2,9 @@ package leafGoMongo
 
 import (
 	"context"
+	"github.com/newrelic/go-agent/v3/newrelic"
+	leafNewRelicTracer "github.com/paulusrobin/leaf-utilities/tracer/integrations/newRelic"
+	leafNewRelicSpanType "github.com/paulusrobin/leaf-utilities/tracer/integrations/newRelic/spanType"
 	leafSentryTracer "github.com/paulusrobin/leaf-utilities/tracer/integrations/sentry"
 	leafSentrySpanType "github.com/paulusrobin/leaf-utilities/tracer/integrations/sentry/spanType"
 	leafTracer "github.com/paulusrobin/leaf-utilities/tracer/tracer"
@@ -20,15 +23,15 @@ func startDataStoreSpan(ctx *context.Context, param dataStoreParam) leafTracer.S
 	var span leafTracer.Span
 
 	span, *ctx = tracer.StartSpanFromContext(*ctx, param.operationName,
-		//taniNewRelicTracer.WithSpanType(taniNewRelicSpanType.DataStore),
-		//taniNewRelicTracer.WithDataStore(taniNewRelicTracer.DataStoreOption{
-		//	Collection:         param.collectionName,
-		//	Operation:          param.operationName,
-		//	ParameterizedQuery: param.parameterizedQuery,
-		//	QueryParameters:    param.queryParameters,
-		//	DatabaseName:       param.databaseName,
-		//	DatastoreProduct:   newrelic.DatastoreMongoDB,
-		//}),
+		leafNewRelicTracer.WithSpanType(leafNewRelicSpanType.DataStore),
+		leafNewRelicTracer.WithDataStore(leafNewRelicTracer.DataStoreOption{
+			Collection:         param.collectionName,
+			Operation:          param.operationName,
+			ParameterizedQuery: param.parameterizedQuery,
+			QueryParameters:    param.queryParameters,
+			DatabaseName:       param.databaseName,
+			DatastoreProduct:   newrelic.DatastoreMongoDB,
+		}),
 		leafSentryTracer.WithSpanType(leafSentrySpanType.DataStore),
 		leafSentryTracer.WithDataStore(leafSentryTracer.DataStoreOption{
 			Collection:         param.collectionName,

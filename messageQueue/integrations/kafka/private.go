@@ -3,6 +3,9 @@ package leafKafka
 import (
 	"context"
 	"fmt"
+	leafNewRelicTracer "github.com/paulusrobin/leaf-utilities/tracer/integrations/newRelic"
+	leafNewRelicDestination "github.com/paulusrobin/leaf-utilities/tracer/integrations/newRelic/messageDestinationType"
+	leafNewRelicSpanType "github.com/paulusrobin/leaf-utilities/tracer/integrations/newRelic/spanType"
 	leafSentryTracer "github.com/paulusrobin/leaf-utilities/tracer/integrations/sentry"
 	leafSentryDestination "github.com/paulusrobin/leaf-utilities/tracer/integrations/sentry/messageDestinationType"
 	leafSentrySpanType "github.com/paulusrobin/leaf-utilities/tracer/integrations/sentry/spanType"
@@ -18,13 +21,13 @@ func startMessagingProducerSpan(ctx context.Context, topic string) leafTracer.Sp
 
 	return tracer.StartSpan(fmt.Sprintf("[Kafka-Producer] %s", topic),
 		tracer.ChildOf(span.Context()),
-		//taniNewRelicTracer.WithSpanType(taniNewRelicSpanType.MessageProducer),
-		//taniNewRelicTracer.WithMessageProducer(taniNewRelicTracer.MessageProducerOption{
-		//	Library:              "Kafka",
-		//	DestinationType:      taniNewRelicDestination.MessageTopic,
-		//	DestinationName:      topic,
-		//	DestinationTemporary: false,
-		//}),
+		leafNewRelicTracer.WithSpanType(leafNewRelicSpanType.MessageProducer),
+		leafNewRelicTracer.WithMessageProducer(leafNewRelicTracer.MessageProducerOption{
+			Library:              "Kafka",
+			DestinationType:      leafNewRelicDestination.MessageTopic,
+			DestinationName:      topic,
+			DestinationTemporary: false,
+		}),
 		leafSentryTracer.WithSpanType(leafSentrySpanType.MessageProducer),
 		leafSentryTracer.WithMessageProducer(leafSentryTracer.MessageProducerOption{
 			Library:              "Kafka",
