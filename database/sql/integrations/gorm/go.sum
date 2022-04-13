@@ -22,8 +22,6 @@ github.com/dgraph-io/badger v1.6.0/go.mod h1:zwt7syl517jmP8s94KqSxTlM6IMsdhYy6ps
 github.com/dgryski/go-farm v0.0.0-20190423205320-6a90982ecee2/go.mod h1:SqUrOPUnsFjfmXRMNPybcSiG0BgUW2AuFH8PAnS2iTw=
 github.com/dustin/go-humanize v1.0.0/go.mod h1:HtrtbFcZ19U5GC7JDqmcUSB87Iq5E25KnS6fMYU6eOk=
 github.com/eknkc/amber v0.0.0-20171010120322-cdade1c07385/go.mod h1:0vRUJqYpeSZifjYj7uP3BG/gKcuzL9xWVV/Y+cK33KM=
-github.com/enricodg/leaf-utilities/database/sql/sql v0.0.0-20220331075104-d5bc5037862e h1:qzGbJRge/Xqk05v+OD3bDOKfcF4MtnmKoJXdAO4LY9k=
-github.com/enricodg/leaf-utilities/database/sql/sql v0.0.0-20220331075104-d5bc5037862e/go.mod h1:Km1u2S5a7ScQBxGUbfsSnDOVTbcJNiA4yoJJb5+LZWw=
 github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
 github.com/etcd-io/bbolt v1.3.3/go.mod h1:ZF2nL25h33cCyBtcyWeZ2/I3HQOfTP+0PIEvHjkjCrw=
@@ -129,12 +127,11 @@ github.com/newrelic/go-agent/v3 v3.15.2 h1:NEpksu2AhuZncbwkDqUg2IvUJst3JQ/TemYfK
 github.com/newrelic/go-agent/v3 v3.15.2/go.mod h1:1A1dssWBwzB7UemzRU6ZVaGDsI+cEn5/bNxI0wiYlIc=
 github.com/newrelic/go-agent/v3/integrations/nrlogrus v1.0.1 h1:Tv985B4QriX/KxNw5ugvTEOMQgpcq/RpZgO+XqhQJQU=
 github.com/newrelic/go-agent/v3/integrations/nrlogrus v1.0.1/go.mod h1:JpiVn2lqR9Vk6Iq7mYGQPJhKEnthbba4QqM8Jb1JTW0=
-github.com/paulusrobin/leaf-utilities/common v0.0.0-20220323084925-3ece86cd22d6 h1:4exmPw5g7BPjV6ThFqZ8VoEUWvSKqEPfTBn2hGrWG20=
-github.com/paulusrobin/leaf-utilities/common v0.0.0-20220323084925-3ece86cd22d6/go.mod h1:2BKZ1Fw6248ETquD7kBApRSVPo8vaV0tMQ5h9H2ZGl4=
 github.com/paulusrobin/leaf-utilities/common v0.0.0-20220413101500-cfb038e5b795 h1:URxlQ7U0WAxLk4nNgOUe6gUdgzcM8xFoMeOuchCcuww=
 github.com/paulusrobin/leaf-utilities/common v0.0.0-20220413101500-cfb038e5b795/go.mod h1:iJgDynwe+i3wS59QI21Wg0PQ//L6JnVhaDzKUudBqko=
+github.com/paulusrobin/leaf-utilities/database/sql/sql v0.0.0-20220413133601-4089043b4ad4 h1:xoebXFeO5dC2X21wEdvS9+b05wPQOdecMU1OCjdU7eo=
+github.com/paulusrobin/leaf-utilities/database/sql/sql v0.0.0-20220413133601-4089043b4ad4/go.mod h1:6GjEwSpTQjWbBNgXO0N4we8BZqDiymBkstCq6EV40bk=
 github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220222200733-69928017cac4/go.mod h1:vzYmDKtBfBSnNi7uRQAgKORWPY3JSJxTHENiwkVgsQM=
-github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220224085244-722410f9260e/go.mod h1:vzYmDKtBfBSnNi7uRQAgKORWPY3JSJxTHENiwkVgsQM=
 github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220407091457-d5651ac33646/go.mod h1:vzYmDKtBfBSnNi7uRQAgKORWPY3JSJxTHENiwkVgsQM=
 github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220413055116-5143d33efda6 h1:LLqMryrLAEmL8gJHef3afWYHU3RXsg8ijmVwpAjT7b4=
 github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220413055116-5143d33efda6/go.mod h1:vzYmDKtBfBSnNi7uRQAgKORWPY3JSJxTHENiwkVgsQM=
@@ -143,7 +140,6 @@ github.com/paulusrobin/leaf-utilities/logger/logger v0.0.0-20220323084925-3ece86
 github.com/paulusrobin/leaf-utilities/mandatory v0.0.0-20220222215549-97dac254c189/go.mod h1:JXZqLWe1dypTYc48vGyMvN6uZ3o/1y7CNUQ/NUjnnHE=
 github.com/paulusrobin/leaf-utilities/mandatory v0.0.0-20220322085140-66e0cded624f h1:YwRcHK9QK9XDKPkM5sHdtBNsSHIto5h3HMfcPAd+Qj4=
 github.com/paulusrobin/leaf-utilities/mandatory v0.0.0-20220322085140-66e0cded624f/go.mod h1:JXZqLWe1dypTYc48vGyMvN6uZ3o/1y7CNUQ/NUjnnHE=
-github.com/paulusrobin/leaf-utilities/time v0.0.0-20220224085244-722410f9260e/go.mod h1:Ipp7cbFJhZ07nJEOe0k8etmTcWXrJkXZlLHl6GEGxKA=
 github.com/paulusrobin/leaf-utilities/time v0.0.0-20220407091457-d5651ac33646/go.mod h1:Ipp7cbFJhZ07nJEOe0k8etmTcWXrJkXZlLHl6GEGxKA=
 github.com/paulusrobin/leaf-utilities/time v0.0.0-20220413055116-5143d33efda6 h1:uak/v6pGRajsE3e0sNfv5PvDJuiaJK41X8ZVgf9jfOw=
 github.com/paulusrobin/leaf-utilities/time v0.0.0-20220413055116-5143d33efda6/go.mod h1:Ipp7cbFJhZ07nJEOe0k8etmTcWXrJkXZlLHl6GEGxKA=
