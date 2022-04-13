@@ -1,4 +1,4 @@
-module memcache
+module github.com/paulusrobin/leaf-utilities/cache/integrations/memcache
 
 go 1.18
 

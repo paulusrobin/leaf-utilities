@@ -1,4 +1,4 @@
-module redis
+module github.com/paulusrobin/leaf-utilities/cache/integrations/redis
 
 go 1.18
 
