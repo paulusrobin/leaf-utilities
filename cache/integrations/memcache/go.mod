@@ -3,7 +3,7 @@ module github.com/paulusrobin/leaf-utilities/cache/integrations/memcache
 go 1.18
 
 require (
-	github.com/paulusrobin/leaf-utilities/cache/cache v0.0.0-20220329025933-deebfa31bd16
+	github.com/paulusrobin/leaf-utilities/cache/cache v0.0.0-20220413133936-f633a007e36e
 	github.com/paulusrobin/leaf-utilities/logger/integrations/logrus v0.0.0-20220323084925-3ece86cd22d6
 	github.com/paulusrobin/leaf-utilities/logger/logger v0.0.0-20220323084925-3ece86cd22d6
 )

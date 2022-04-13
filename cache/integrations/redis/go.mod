@@ -3,8 +3,8 @@ module github.com/paulusrobin/leaf-utilities/cache/integrations/redis
 go 1.18
 
 require (
-	github.com/paulusrobin/leaf-utilities/cache/cache v0.0.0-20220329025933-deebfa31bd16
 	github.com/go-redis/redis v6.15.9+incompatible
+	github.com/paulusrobin/leaf-utilities/cache/cache v0.0.0-20220413133936-f633a007e36e
 )
 
 require (

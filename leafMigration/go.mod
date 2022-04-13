@@ -3,15 +3,6 @@ module github.com/paulusrobin/leaf-utilities/leafMigration
 go 1.18
 
 require (
-	github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm/mysql v0.0.0-20220331101308-358b5b99729f
-	github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm/postgresql v0.0.0-20220331101308-358b5b99729f
-	github.com/paulusrobin/leaf-utilities/database/sql/sql v0.0.0-20220331101308-358b5b99729f
-	github.com/labstack/gommon v0.3.1
-	github.com/paulusrobin/leaf-utilities/config v0.0.0-20220407104228-ffe90f543297
-	github.com/paulusrobin/leaf-utilities/database/nosql/integrations/gomongo v0.0.0-20220412043619-c825dc489a25
-	github.com/paulusrobin/leaf-utilities/database/nosql/nosql v0.0.0-20220412043619-c825dc489a25
-	github.com/paulusrobin/leaf-utilities/logger/integrations/logrus v0.0.0-20220407104228-ffe90f543297
-	github.com/paulusrobin/leaf-utilities/logger/logger v0.0.0-20220407104228-ffe90f543297
 	github.com/pkg/errors v0.9.1
 	github.com/urfave/cli/v2 v2.4.0
 	go.mongodb.org/mongo-driver v1.9.0
