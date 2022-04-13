@@ -1,4 +1,4 @@
-module github.com/paulusrobin/leaf-utilities/messagingQueue/integrations/googlePubsub
+module github.com/paulusrobin/leaf-utilities/messageQueue/integrations/googlePubsub
 
 go 1.18
 
