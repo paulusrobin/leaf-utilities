@@ -25,7 +25,7 @@ Supporting utilities for [Leaf Framework](https://github.com/paulusrobin/leaf)
 - [x] [Cache](cache/cache)
     - [x] [Redis](cache/integrations/redis)
     - [x] [Memcache](cache/integrations/memcache)
-- [ ] Application Runner
+- [x] [Application Runner](appRunner)
     - [ ] HTTP
     - [ ] gRPC
     - [ ] Messaging Queue
@@ -36,6 +36,6 @@ Supporting utilities for [Leaf Framework](https://github.com/paulusrobin/leaf)
     - [ ] 
 - [x] [Tracer](tracer/tracer)
    - [ ] [Elastic APM](tracer/integrations/elastic)
-   - [ ] [Newrelic APM](tracer/integrations/newRelic)
+   - [x] [Newrelic APM](tracer/integrations/newRelic)
    - [x] [Sentry APM](tracer/integrations/sentry)
 - [x] [Migration CLI](leafMigration)
