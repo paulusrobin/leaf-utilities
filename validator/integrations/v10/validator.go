@@ -2,39 +2,50 @@ package leafValidatorV10
 
 import (
 	"database/sql/driver"
-	"github.com/go-playground/locales/en"
-	"github.com/go-playground/locales/id"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
-	en_translations "github.com/go-playground/validator/v10/translations/en"
 	leafTypes "github.com/paulusrobin/leaf-utilities/common/types"
 	"github.com/paulusrobin/leaf-utilities/validator/integrations/v10/custom"
+	enTranslations "github.com/paulusrobin/leaf-utilities/validator/integrations/v10/translations/en"
+	idTranslations "github.com/paulusrobin/leaf-utilities/validator/integrations/v10/translations/id"
 	leafValidator "github.com/paulusrobin/leaf-utilities/validator/validator"
 	"reflect"
 )
 
 type (
 	implementation struct {
-		instance *validator.Validate
-		trans    ut.Translator
+		instance   *validator.Validate
+		translator *ut.UniversalTranslator
 	}
 )
 
-func New() (leafValidator.Validator, error) {
-	langEn := en.New()
-	langId := id.New()
-	uni := ut.New(langEn, langEn, langId)
-	trans, _ := uni.GetTranslator("en")
+func New(opts ...ValidatorOption) (leafValidator.Validator, error) {
+	options := defaultValidatorOptions()
+	for _, opt := range opts {
+		opt.Apply(&options)
+	}
+
+	enTranslator, _ := options.translator.GetTranslator("en")
+	idTranslator, _ := options.translator.GetTranslator("id")
 
 	validate := validator.New()
-	if err := en_translations.RegisterDefaultTranslations(validate, trans); err != nil {
+	if err := enTranslations.RegisterTranslations(validate, enTranslator); err != nil {
+		return nil, err
+	}
+	if err := idTranslations.RegisterTranslations(validate, idTranslator); err != nil {
 		return nil, err
 	}
 
 	// register all types.Null* types to use the ValidateValuer CustomTypeFunc
-	validate.RegisterCustomTypeFunc(ValidateValuer, leafTypes.NullString{}, leafTypes.NullInt32{}, leafTypes.NullInt64{}, leafTypes.NullBool{}, leafTypes.NullFloat64{}, leafTypes.NullTime{})
+	validate.RegisterCustomTypeFunc(ValidateValuer,
+		leafTypes.NullString{},
+		leafTypes.NullInt32{},
+		leafTypes.NullInt64{},
+		leafTypes.NullBool{},
+		leafTypes.NullFloat64{},
+		leafTypes.NullTime{})
 
-	instance := &implementation{instance: validate, trans: trans}
+	instance := &implementation{instance: validate, translator: options.translator}
 	if err := instance.registerDefaultValidator(); err != nil {
 		return nil, err
 	}
@@ -69,6 +80,16 @@ func (i *implementation) registerDefaultValidator() error {
 	if err := i.instance.RegisterValidation("ltcsfield", custom.IsLtCrossStructField); err != nil {
 		return err
 	}
+	if err := i.instance.RegisterValidation("precision", custom.Precision); err != nil {
+		return err
+	}
+	if err := i.instance.RegisterValidation("ltecsfield_daterange", custom.IsDateInRangeCrossStructField); err != nil {
+		return err
+	}
+	if err := i.instance.RegisterValidation("ltecsfield_datetimerange", custom.IsDateTimeInRangeCrossStructField); err != nil {
+		return err
+	}
+
 	return nil
 }
 
