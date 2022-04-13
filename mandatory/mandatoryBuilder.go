@@ -125,6 +125,21 @@ func (m MandatoryBuilder) WithUser(ID uint64, email string) MandatoryBuilder {
 	return m
 }
 
+func (m MandatoryBuilder) WithUserPhone(ID uint64, email string, phone string) MandatoryBuilder {
+	m.user.login = true
+	m.user.id = ID
+	m.user.email = email
+	m.user.phone = phone
+	return m
+}
+
+func (m MandatoryBuilder) WithPhone(ID uint64, phone string) MandatoryBuilder {
+	m.user.login = true
+	m.user.id = ID
+	m.user.phone = phone
+	return m
+}
+
 func (m MandatoryBuilder) WithLanguage(language string) MandatoryBuilder {
 	m.language = language
 	return m
