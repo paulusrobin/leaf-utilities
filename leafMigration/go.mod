@@ -3,9 +3,9 @@ module github.com/paulusrobin/leaf-utilities/leafMigration
 go 1.18
 
 require (
-	github.com/enricodg/leaf-utilities/database/sql/integrations/gorm/mysql v0.0.0-20220331101308-358b5b99729f
-	github.com/enricodg/leaf-utilities/database/sql/integrations/gorm/postgresql v0.0.0-20220331101308-358b5b99729f
-	github.com/enricodg/leaf-utilities/database/sql/sql v0.0.0-20220331101308-358b5b99729f
+	github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm/mysql v0.0.0-20220331101308-358b5b99729f
+	github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm/postgresql v0.0.0-20220331101308-358b5b99729f
+	github.com/paulusrobin/leaf-utilities/database/sql/sql v0.0.0-20220331101308-358b5b99729f
 	github.com/labstack/gommon v0.3.1
 	github.com/paulusrobin/leaf-utilities/config v0.0.0-20220407104228-ffe90f543297
 	github.com/paulusrobin/leaf-utilities/database/nosql/integrations/gomongo v0.0.0-20220412043619-c825dc489a25
@@ -19,7 +19,7 @@ require (
 
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
-	github.com/enricodg/leaf-utilities/database/sql/integrations/gorm v0.0.0-20220331100756-a84fbacdf450 // indirect
+	github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm v0.0.0-20220331100756-a84fbacdf450 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/getsentry/sentry-go v0.13.0 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect

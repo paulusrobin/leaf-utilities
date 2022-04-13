@@ -137,6 +137,8 @@ github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220407091457-d5651a
 github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220407091457-d5651ac33646/go.mod h1:vzYmDKtBfBSnNi7uRQAgKORWPY3JSJxTHENiwkVgsQM=
 github.com/paulusrobin/leaf-utilities/logger/integrations/logrus v0.0.0-20220323084925-3ece86cd22d6 h1:3g3xhfTFAHpPScZACp3+MB383piYjz+oL01px+BZ+wk=
 github.com/paulusrobin/leaf-utilities/logger/integrations/logrus v0.0.0-20220323084925-3ece86cd22d6/go.mod h1:kYBjXSYXKddpPrtKboz5AZTB+RIp2ERB1PUA/VMw91k=
+github.com/paulusrobin/leaf-utilities/logger/integrations/logrus v0.0.0-20220413132544-e3933cd009f2 h1:iKsT54DYqi3demaMbtIOu3TPLnb8l2xOQza78WTABfU=
+github.com/paulusrobin/leaf-utilities/logger/integrations/logrus v0.0.0-20220413132544-e3933cd009f2/go.mod h1:F6fO55ccRz0uh919aIB7El/wglKK04kAP5jFOxIAY6o=
 github.com/paulusrobin/leaf-utilities/logger/logger v0.0.0-20220223080334-c45428a9e841/go.mod h1:6h87cHxQYWLjUH4/dUlsE1wdL4AZS53ltluGHcL/C+Q=
 github.com/paulusrobin/leaf-utilities/logger/logger v0.0.0-20220323084925-3ece86cd22d6 h1:75KVvlkQb2V2bFrdy55ybRC6sVEqgsMt+VLxOgD3qvk=
 github.com/paulusrobin/leaf-utilities/logger/logger v0.0.0-20220323084925-3ece86cd22d6/go.mod h1:6h87cHxQYWLjUH4/dUlsE1wdL4AZS53ltluGHcL/C+Q=

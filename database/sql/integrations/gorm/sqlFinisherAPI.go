@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	leafSql "github.com/enricodg/leaf-utilities/database/sql/sql"
+	leafSql "github.com/paulusrobin/leaf-utilities/database/sql/sql"
 	"github.com/thoas/go-funk"
 	"gorm.io/gorm"
 	"strings"

@@ -3,7 +3,7 @@ package leafGorm
 import (
 	"context"
 	"database/sql"
-	leafSql "github.com/enricodg/leaf-utilities/database/sql/sql"
+	leafSql "github.com/paulusrobin/leaf-utilities/database/sql/sql"
 	"gorm.io/gorm"
 )
 

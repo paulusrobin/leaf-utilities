@@ -3,7 +3,7 @@ package leafMemcache
 import (
 	"context"
 	"fmt"
-	"github.com/enricodg/leaf-utilities/cache/cache"
+	"github.com/paulusrobin/leaf-utilities/cache/cache"
 	"reflect"
 	"sync"
 	"time"

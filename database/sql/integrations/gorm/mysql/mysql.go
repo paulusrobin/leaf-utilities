@@ -2,9 +2,9 @@ package leafGormMySql
 
 import (
 	"fmt"
-	leafGorm "github.com/enricodg/leaf-utilities/database/sql/integrations/gorm"
-	leafSql "github.com/enricodg/leaf-utilities/database/sql/sql"
 	"github.com/newrelic/go-agent/v3/newrelic"
+	leafGorm "github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm"
+	leafSql "github.com/paulusrobin/leaf-utilities/database/sql/sql"
 	leafLogrus "github.com/paulusrobin/leaf-utilities/logger/integrations/logrus"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

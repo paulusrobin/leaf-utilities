@@ -2,8 +2,8 @@ package leafSlack
 
 import (
 	"context"
-	leafWebClient "github.com/enricodg/leaf-utilities/webClient/webClient"
 	leafHeimdall "github.com/paulusrobin/leaf-utilities/webClient/integrations/heimdall"
+	leafWebClient "github.com/paulusrobin/leaf-utilities/webClient/webClient"
 	"net/http"
 	"strings"
 	"time"

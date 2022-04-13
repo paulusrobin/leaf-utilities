@@ -3,7 +3,7 @@ package leafGorm
 import (
 	"context"
 	"errors"
-	leafSql "github.com/enricodg/leaf-utilities/database/sql/sql"
+	leafSql "github.com/paulusrobin/leaf-utilities/database/sql/sql"
 	leafNewRelicTracer "github.com/paulusrobin/leaf-utilities/tracer/integrations/newRelic"
 	leafNewRelicSpanType "github.com/paulusrobin/leaf-utilities/tracer/integrations/newRelic/spanType"
 	leafSentryTracer "github.com/paulusrobin/leaf-utilities/tracer/integrations/sentry"

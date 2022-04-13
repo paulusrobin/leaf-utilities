@@ -3,7 +3,7 @@ package postgre
 import (
 	"context"
 	"fmt"
-	leafSql "github.com/enricodg/leaf-utilities/database/sql/sql"
+	leafSql "github.com/paulusrobin/leaf-utilities/database/sql/sql"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/db/postgre"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/helper/connection"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/helper/migration"

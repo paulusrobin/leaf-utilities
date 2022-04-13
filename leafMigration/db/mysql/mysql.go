@@ -1,8 +1,8 @@
 package mysql
 
 import (
-	leafGormMySql "github.com/enricodg/leaf-utilities/database/sql/integrations/gorm/mysql"
-	leafSql "github.com/enricodg/leaf-utilities/database/sql/sql"
+	leafGormMySql "github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm/mysql"
+	leafSql "github.com/paulusrobin/leaf-utilities/database/sql/sql"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/config"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/logger"
 	"strings"

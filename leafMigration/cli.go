@@ -1,8 +1,8 @@
 package leafMigration
 
 import (
-	leafSql "github.com/enricodg/leaf-utilities/database/sql/sql"
 	leafNoSql "github.com/paulusrobin/leaf-utilities/database/nosql/nosql"
+	leafSql "github.com/paulusrobin/leaf-utilities/database/sql/sql"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/command"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/helper/migration"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/logger"

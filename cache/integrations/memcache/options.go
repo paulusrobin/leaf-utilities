@@ -1,7 +1,7 @@
 package leafMemcache
 
 import (
-	leafCache "github.com/enricodg/leaf-utilities/cache/cache"
+	leafCache "github.com/paulusrobin/leaf-utilities/cache/cache"
 	leafLogrus "github.com/paulusrobin/leaf-utilities/logger/integrations/logrus"
 	leafLogger "github.com/paulusrobin/leaf-utilities/logger/logger"
 )

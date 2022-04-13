@@ -2,7 +2,7 @@ package model
 
 import (
 	"fmt"
-	"github.com/enricodg/leaf-example/pkg/constant/privilege"
+	"github.com/paulusrobin/leaf-example/pkg/constant/privilege"
 	"strings"
 )
 

@@ -5,7 +5,7 @@ const MigrationsTemplate = `package {{.MigrationType}}
 import (
 	"context"
 	leafLogger "github.com/paulusrobin/leaf-utilities/logger/logger"
-	{{if .IsMongo}}nosqlConnection "github.com/paulusrobin/leaf-utilities/database/nosql/nosql"{{else}}sqlConnection "github.com/enricodg/leaf-utilities/database/sql/sql"{{end}}
+	{{if .IsMongo}}nosqlConnection "github.com/paulusrobin/leaf-utilities/database/nosql/nosql"{{else}}sqlConnection "github.com/paulusrobin/leaf-utilities/database/sql/sql"{{end}}
 )
 
 type migration_{{.Version}} struct {

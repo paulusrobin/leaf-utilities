@@ -1,7 +1,7 @@
 package leafGorm
 
 import (
-	leafSql "github.com/enricodg/leaf-utilities/database/sql/sql"
+	leafSql "github.com/paulusrobin/leaf-utilities/database/sql/sql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )

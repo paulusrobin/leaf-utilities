@@ -1,8 +1,8 @@
 package leafHeimdall
 
 import (
-	leafCircuitBreaker "github.com/enricodg/leaf-utilities/webClient/webClient/circuitBreaker"
 	"github.com/gojek/heimdall/v7"
+	leafCircuitBreaker "github.com/paulusrobin/leaf-utilities/webClient/webClient/circuitBreaker"
 )
 
 func convertToHeimdallRetryBackoff(retryBackoff leafCircuitBreaker.RetryBackoffOption) heimdall.Retriable {

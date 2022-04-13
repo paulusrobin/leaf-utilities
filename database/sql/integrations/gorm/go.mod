@@ -1,9 +1,9 @@
-module github.com/enricodg/leaf-utilities/database/sql/integrations/gorm
+module github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm
 
 go 1.18
 
 require (
-	github.com/enricodg/leaf-utilities/database/sql/sql v0.0.0-20220331075104-d5bc5037862e
+	github.com/paulusrobin/leaf-utilities/database/sql/sql v0.0.0-20220331075104-d5bc5037862e
 	github.com/newrelic/go-agent/v3 v3.15.2
 	github.com/paulusrobin/leaf-utilities/common v0.0.0-20220413101500-cfb038e5b795
 	github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220413055116-5143d33efda6

@@ -1,8 +1,8 @@
 package postgre
 
 import (
-	leafGormPostgreSql "github.com/enricodg/leaf-utilities/database/sql/integrations/gorm/postgresql"
-	leafSql "github.com/enricodg/leaf-utilities/database/sql/sql"
+	leafGormPostgreSql "github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm/postgresql"
+	leafSql "github.com/paulusrobin/leaf-utilities/database/sql/sql"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/config"
 	"github.com/paulusrobin/leaf-utilities/leafMigration/logger"
 	"strings"
