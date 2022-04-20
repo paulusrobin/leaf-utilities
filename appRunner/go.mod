@@ -7,18 +7,18 @@ require (
 	github.com/go-playground/validator/v10 v10.10.1
 	github.com/google/uuid v1.1.2
 	github.com/labstack/echo/v4 v4.7.2
-	github.com/paulusrobin/leaf-utilities/common v0.0.0-20220413071443-7f5c4a8691c9
-	github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220224085244-722410f9260e
-	github.com/paulusrobin/leaf-utilities/logger/integrations/logrus v0.0.0-20220413072545-92a689b4b6d6
-	github.com/paulusrobin/leaf-utilities/logger/logger v0.0.0-20220413072545-92a689b4b6d6
-	github.com/paulusrobin/leaf-utilities/mandatory v0.0.0-20220413081215-d62a524206c5
-	github.com/paulusrobin/leaf-utilities/messageQueue/messageQueue v0.0.0-20220413074846-21473905e5e1
-	github.com/paulusrobin/leaf-utilities/time v0.0.0-20220224085244-722410f9260e
-	github.com/paulusrobin/leaf-utilities/token v0.0.0-20220413080835-27cfc1be7f63
-	github.com/paulusrobin/leaf-utilities/tracer/tracer v0.0.0-20220413074846-21473905e5e1
-	github.com/paulusrobin/leaf-utilities/translator v0.0.0-20220413072545-92a689b4b6d6
-	github.com/paulusrobin/leaf-utilities/validator/integrations/v10 v10.0.0-20220413074846-21473905e5e1
-	github.com/paulusrobin/leaf-utilities/validator/validator v0.0.0-20220413072545-92a689b4b6d6
+	github.com/paulusrobin/leaf-utilities/common v0.0.0-20220413144204-972ab9e3b19d
+	github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220413144204-972ab9e3b19d
+	github.com/paulusrobin/leaf-utilities/logger/integrations/logrus v0.0.0-20220413144204-972ab9e3b19d
+	github.com/paulusrobin/leaf-utilities/logger/logger v0.0.0-20220413144204-972ab9e3b19d
+	github.com/paulusrobin/leaf-utilities/mandatory v0.0.0-20220413144204-972ab9e3b19d
+	github.com/paulusrobin/leaf-utilities/messageQueue/messageQueue v0.0.0-20220413144204-972ab9e3b19d
+	github.com/paulusrobin/leaf-utilities/time v0.0.0-20220413144204-972ab9e3b19d
+	github.com/paulusrobin/leaf-utilities/token v0.0.0-20220413144204-972ab9e3b19d
+	github.com/paulusrobin/leaf-utilities/tracer/tracer v0.0.0-20220413144204-972ab9e3b19d
+	github.com/paulusrobin/leaf-utilities/translator v0.0.0-20220413144204-972ab9e3b19d
+	github.com/paulusrobin/leaf-utilities/validator/integrations/v10 v10.0.0-20220413144204-972ab9e3b19d
+	github.com/paulusrobin/leaf-utilities/validator/validator v0.0.0-20220413144204-972ab9e3b19d
 	github.com/pkg/errors v0.9.1
 )
 
