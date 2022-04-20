@@ -4,14 +4,14 @@ go 1.18
 
 require (
 	github.com/labstack/gommon v0.3.1
-	github.com/paulusrobin/leaf-utilities/config v0.0.0-20220413134139-09b3b75d68d3
-	github.com/paulusrobin/leaf-utilities/database/nosql/integrations/gomongo v0.0.0-20220413134139-09b3b75d68d3
-	github.com/paulusrobin/leaf-utilities/database/nosql/nosql v0.0.0-20220413134139-09b3b75d68d3
-	github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm/mysql v0.0.0-20220413134139-09b3b75d68d3
-	github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm/postgresql v0.0.0-20220413134139-09b3b75d68d3
-	github.com/paulusrobin/leaf-utilities/database/sql/sql v0.0.0-20220413134139-09b3b75d68d3
-	github.com/paulusrobin/leaf-utilities/logger/integrations/logrus v0.0.0-20220413134139-09b3b75d68d3
-	github.com/paulusrobin/leaf-utilities/logger/logger v0.0.0-20220413134139-09b3b75d68d3
+	github.com/paulusrobin/leaf-utilities/config v0.0.0-20220420071653-80e4cae9f4d2
+	github.com/paulusrobin/leaf-utilities/database/nosql/integrations/gomongo v0.0.0-20220420071653-80e4cae9f4d2
+	github.com/paulusrobin/leaf-utilities/database/nosql/nosql v0.0.0-20220420071653-80e4cae9f4d2
+	github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm/mysql v0.0.0-20220420071653-80e4cae9f4d2
+	github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm/postgresql v0.0.0-20220420071653-80e4cae9f4d2
+	github.com/paulusrobin/leaf-utilities/database/sql/sql v0.0.0-20220420071653-80e4cae9f4d2
+	github.com/paulusrobin/leaf-utilities/logger/integrations/logrus v0.0.0-20220420071653-80e4cae9f4d2
+	github.com/paulusrobin/leaf-utilities/logger/logger v0.0.0-20220420071653-80e4cae9f4d2
 	github.com/pkg/errors v0.9.1
 	github.com/urfave/cli/v2 v2.4.0
 	go.mongodb.org/mongo-driver v1.9.0
@@ -27,13 +27,13 @@ require (
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
-	github.com/jackc/pgconn v1.10.1 // indirect
+	github.com/jackc/pgconn v1.11.0 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgproto3/v2 v2.2.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20200714003250-2b9c44734f2b // indirect
-	github.com/jackc/pgtype v1.9.1 // indirect
-	github.com/jackc/pgx/v4 v4.14.1 // indirect
+	github.com/jackc/pgtype v1.10.0 // indirect
+	github.com/jackc/pgx/v4 v4.15.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.4 // indirect
 	github.com/joho/godotenv v1.4.0 // indirect
@@ -48,14 +48,14 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/newrelic/go-agent/v3 v3.15.2 // indirect
 	github.com/newrelic/go-agent/v3/integrations/nrlogrus v1.0.1 // indirect
-	github.com/paulusrobin/leaf-utilities/common v0.0.0-20220413101500-cfb038e5b795 // indirect
-	github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm v0.0.0-20220413133936-f633a007e36e // indirect
-	github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220413055116-5143d33efda6 // indirect
-	github.com/paulusrobin/leaf-utilities/mandatory v0.0.0-20220322085140-66e0cded624f // indirect
-	github.com/paulusrobin/leaf-utilities/time v0.0.0-20220413055116-5143d33efda6 // indirect
-	github.com/paulusrobin/leaf-utilities/tracer/integrations/newRelic v0.0.0-20220413061907-30a9a704dbc3 // indirect
-	github.com/paulusrobin/leaf-utilities/tracer/integrations/sentry v0.0.0-20220407094130-ee2721541c6d // indirect
-	github.com/paulusrobin/leaf-utilities/tracer/tracer v0.0.0-20220413055116-5143d33efda6 // indirect
+	github.com/paulusrobin/leaf-utilities/common v0.0.0-20220420071530-0dc19d08f93c // indirect
+	github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm v0.0.0-20220420071326-93f5620aa781 // indirect
+	github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220420071242-5e007772e03c // indirect
+	github.com/paulusrobin/leaf-utilities/mandatory v0.0.0-20220420070336-2df28f149cda // indirect
+	github.com/paulusrobin/leaf-utilities/time v0.0.0-20220420070753-f0289b1e394b // indirect
+	github.com/paulusrobin/leaf-utilities/tracer/integrations/newRelic v0.0.0-20220420071530-0dc19d08f93c // indirect
+	github.com/paulusrobin/leaf-utilities/tracer/integrations/sentry v0.0.0-20220420071530-0dc19d08f93c // indirect
+	github.com/paulusrobin/leaf-utilities/tracer/tracer v0.0.0-20220420071530-0dc19d08f93c // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
 	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
@@ -84,7 +84,7 @@ require (
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/ini.v1 v1.66.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gorm.io/driver/mysql v1.3.2 // indirect
-	gorm.io/driver/postgres v1.3.1 // indirect
-	gorm.io/gorm v1.23.3 // indirect
+	gorm.io/driver/mysql v1.3.3 // indirect
+	gorm.io/driver/postgres v1.3.4 // indirect
+	gorm.io/gorm v1.23.4 // indirect
 )
