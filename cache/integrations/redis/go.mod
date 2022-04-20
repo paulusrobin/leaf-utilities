@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/go-redis/redis v6.15.9+incompatible
-	github.com/paulusrobin/leaf-utilities/cache/cache v0.0.0-20220413133936-f633a007e36e
+	github.com/paulusrobin/leaf-utilities/cache/cache v0.0.0-20220420070753-f0289b1e394b
 )
 
 require (

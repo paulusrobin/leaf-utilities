@@ -5,9 +5,9 @@ go 1.18
 require (
 	github.com/newrelic/go-agent/v3 v3.15.2
 	github.com/newrelic/go-agent/v3/integrations/nrlogrus v1.0.1
-	github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220413055116-5143d33efda6
-	github.com/paulusrobin/leaf-utilities/time v0.0.0-20220413055116-5143d33efda6
-	github.com/paulusrobin/leaf-utilities/tracer/tracer v0.0.0-20220413055116-5143d33efda6
+	github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220420070753-f0289b1e394b
+	github.com/paulusrobin/leaf-utilities/time v0.0.0-20220420070753-f0289b1e394b
+	github.com/paulusrobin/leaf-utilities/tracer/tracer v0.0.0-20220420070753-f0289b1e394b
 )
 
 require (
