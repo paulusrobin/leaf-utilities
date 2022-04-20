@@ -4,9 +4,9 @@ go 1.18
 
 require (
 	github.com/newrelic/go-agent/v3 v3.15.2
-	github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm v0.0.0-20220420071326-93f5620aa781
-	github.com/paulusrobin/leaf-utilities/database/sql/sql v0.0.0-20220420071326-93f5620aa781
-	github.com/paulusrobin/leaf-utilities/logger/integrations/logrus v0.0.0-20220420071326-93f5620aa781
+	github.com/paulusrobin/leaf-utilities/database/sql/integrations/gorm v0.0.0-20220420081227-c2758aaa663c
+	github.com/paulusrobin/leaf-utilities/database/sql/sql v0.0.0-20220420081227-c2758aaa663c
+	github.com/paulusrobin/leaf-utilities/logger/integrations/logrus v0.0.0-20220420081227-c2758aaa663c
 	gorm.io/driver/postgres v1.3.4
 	gorm.io/gorm v1.23.4
 )
@@ -31,11 +31,11 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/newrelic/go-agent/v3/integrations/nrlogrus v1.0.1 // indirect
-	github.com/paulusrobin/leaf-utilities/common v0.0.0-20220420071242-5e007772e03c // indirect
+	github.com/paulusrobin/leaf-utilities/common v0.0.0-20220420071653-80e4cae9f4d2 // indirect
 	github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220420071242-5e007772e03c // indirect
-	github.com/paulusrobin/leaf-utilities/logger/logger v0.0.0-20220420071242-5e007772e03c // indirect
+	github.com/paulusrobin/leaf-utilities/logger/logger v0.0.0-20220420071653-80e4cae9f4d2 // indirect
 	github.com/paulusrobin/leaf-utilities/mandatory v0.0.0-20220420070336-2df28f149cda // indirect
-	github.com/paulusrobin/leaf-utilities/time v0.0.0-20220420070753-f0289b1e394b // indirect
+	github.com/paulusrobin/leaf-utilities/time v0.0.0-20220420071653-80e4cae9f4d2 // indirect
 	github.com/paulusrobin/leaf-utilities/tracer/integrations/newRelic v0.0.0-20220420071242-5e007772e03c // indirect
 	github.com/paulusrobin/leaf-utilities/tracer/integrations/sentry v0.0.0-20220420071242-5e007772e03c // indirect
 	github.com/paulusrobin/leaf-utilities/tracer/tracer v0.0.0-20220420071242-5e007772e03c // indirect
