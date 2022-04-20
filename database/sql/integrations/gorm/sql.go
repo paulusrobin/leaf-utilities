@@ -49,5 +49,5 @@ func (i *Impl) Association(column string) *gorm.Association {
 	return i.GormDB.Association(column)
 }
 func (i *Impl) Statement() *gorm.Statement {
-	return i.GormDBDryRun.Statement
+	return i.GormDB.Statement
 }
