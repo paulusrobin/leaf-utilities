@@ -68,7 +68,7 @@ func logRequest(ctx context.Context, operationName string, logger leafLogger.Log
 }
 
 func logResponse(ctx context.Context, operationName string, logger leafLogger.Logger, duration time.Duration, err error) {
-	responseMsg := fmt.Sprintf("[messaging-log] - [RESPONSE] - [%dms] Finish %s", duration.Milliseconds(), operationName)
+	responseMsg := fmt.Sprintf("[worker-log] - [RESPONSE] - [%dms] Finish %s", duration.Milliseconds(), operationName)
 
 	if err != nil {
 		logger.Error(leafLogger.BuildMessage(ctx, responseMsg, leafLogger.WithAttr("error", err)))
