@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func New(path string, object interface{}) error {
+func New(path string, configType string, object interface{}) error {
 	// - check file does exists
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		return fmt.Errorf("config file %s does not exists\nerror: %+v", path, err)
@@ -25,7 +25,7 @@ func New(path string, object interface{}) error {
 	v := viper.New()
 	v.SetConfigName(file)
 	v.AddConfigPath(dir)
-	v.SetConfigType("properties")
+	v.SetConfigType(configType)
 	v.AutomaticEnv()
 
 	if err := v.ReadInConfig(); err != nil {
@@ -73,11 +73,5 @@ func getFile(path string) (string, error) {
 	splits := strings.Split(path, "/")
 	last := splits[len(splits)-1]
 
-	files := strings.Split(last, ".")
-
-	if len(files) != 2 {
-		return "", fmt.Errorf(fmt.Sprintf("invalid config file %v", files))
-	}
-
-	return files[0], nil
+	return last, nil
 }
