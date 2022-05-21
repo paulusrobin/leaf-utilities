@@ -24,6 +24,7 @@ type (
 		logger               leafLogger.Logger
 		healthCheck          HealthCheckHook
 		healthCheckAccessKey string
+		featureFlags         map[string]interface{}
 
 		// Hooks
 		register     HttpHook
@@ -55,6 +56,7 @@ func defaultHttpOption() httpOptions {
 			return http.StatusOK, make(map[string]map[string]interface{})
 		},
 		healthCheckAccessKey: "",
+		featureFlags:         nil,
 	}
 }
 
@@ -126,6 +128,16 @@ func (w withHttpHealthCheck) Apply(o *httpOptions) {
 
 func WithHttpHealthCheck(hook HealthCheckHook) HttpOption {
 	return withHttpHealthCheck(hook)
+}
+
+type withFeatureFlags map[string]interface{}
+
+func (w withFeatureFlags) Apply(o *httpOptions) {
+	o.featureFlags = w
+}
+
+func WithFeatureFlags(ff map[string]interface{}) HttpOption {
+	return withFeatureFlags(ff)
 }
 
 type withHttpRegister HttpHook

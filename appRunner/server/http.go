@@ -7,7 +7,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	leafHttpMiddleware "github.com/paulusrobin/leaf-utilities/appRunner/middleware/http"
 	"os"
-	"syscall"
+	"strings"
 	"time"
 )
 
@@ -68,7 +68,7 @@ func (s *HttpServer) Serve(sig chan os.Signal) {
 			go func() {
 				if err := s.ec.Start(fmt.Sprintf(":%d", s.option.port)); err != nil {
 					s.option.logger.StandardLogger().Errorf("[HTTP-SERVER] server interrupted %s", err.Error())
-					sig <- syscall.SIGINT
+					sig <- os.Interrupt
 				}
 			}()
 			time.Sleep(time.Second)
@@ -81,6 +81,20 @@ func (s *HttpServer) Serve(sig chan os.Signal) {
 			if s.option.register != nil {
 				s.option.logger.StandardLogger().Debug("[HTTP-SERVER] starting register hooks")
 				s.option.register(s.ec, s.option.logger)
+			}
+
+			if s.option.featureFlags != nil {
+				for _, route := range s.ec.Routes() {
+					key := strings.ToLower(route.Method + "_" + route.Path)
+					if strings.Contains(route.Path, "healthz") || strings.Contains(route.Path, "docs") {
+						continue
+					}
+
+					if s.option.featureFlags[key] == nil || s.option.featureFlags[key] == "" {
+						s.option.logger.StandardLogger().Errorf("[HTTP-SERVER] shutting down server due to missing %s feature flag", key)
+						sig <- os.Interrupt
+					}
+				}
 			}
 		},
 		beforeRun: func() {
