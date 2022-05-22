@@ -56,6 +56,10 @@ func (n noopRedis) HSetWithExpiration(ctx context.Context, key string, field str
 	return nil
 }
 
+func (n noopRedis) MSet(ctx context.Context, data map[string]interface{}) error {
+	return nil
+}
+
 func (n noopRedis) MGet(ctx context.Context, key []string) ([]interface{}, error) {
 	return make([]interface{}, 0), nil
 }
