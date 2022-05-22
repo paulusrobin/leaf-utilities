@@ -214,6 +214,27 @@ func (c *goredis) HSetWithExpiration(ctx context.Context, key, field string, val
 	return nil
 }
 
+func (c *goredis) MSet(ctx context.Context, data map[string]interface{}) error {
+	if err := check(c); err != nil {
+		return err
+	}
+
+	var pairs []interface{}
+	for k, v := range data {
+		pairs = append(pairs, k, v)
+	}
+	_, err := c.r.MSet(pairs...).Result()
+	if err == redis.Nil {
+		return err
+	}
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (c *goredis) MGet(ctx context.Context, key []string) ([]interface{}, error) {
 	if err := check(c); err != nil {
 		return nil, err
