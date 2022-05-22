@@ -31,6 +31,14 @@ func (c *cache) Close() error {
 }
 
 func (c *cache) Set(ctx context.Context, key string, value interface{}, ttl time.Duration) error {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		operationName:      "Set",
+		collectionName:     key,
+		parameterizedQuery: "Set $1 $2",
+		queryParameters:    []interface{}{key, value},
+	})
+	defer span.Finish()
+
 	c.Lock()
 	defer c.Unlock()
 
@@ -69,6 +77,14 @@ func (c *cache) Set(ctx context.Context, key string, value interface{}, ttl time
 }
 
 func (c *cache) Get(ctx context.Context, key string) (interface{}, error) {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		operationName:      "Get",
+		collectionName:     key,
+		parameterizedQuery: "Get $1",
+		queryParameters:    []interface{}{key},
+	})
+	defer span.Finish()
+
 	c.Lock()
 	defer c.Unlock()
 	if value, ok := c.data[key]; ok {
@@ -78,6 +94,14 @@ func (c *cache) Get(ctx context.Context, key string) (interface{}, error) {
 }
 
 func (c *cache) Remove(ctx context.Context, key string) error {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		operationName:      "Remove",
+		collectionName:     key,
+		parameterizedQuery: "Remove $1",
+		queryParameters:    []interface{}{key},
+	})
+	defer span.Finish()
+
 	data, err := c.Get(ctx, key)
 	if err != nil {
 		return err
@@ -95,6 +119,14 @@ func (c *cache) Remove(ctx context.Context, key string) error {
 }
 
 func (c *cache) Truncate(ctx context.Context) error {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		operationName:      "Truncate",
+		collectionName:     "*",
+		parameterizedQuery: "Truncate",
+		queryParameters:    nil,
+	})
+	defer span.Finish()
+
 	c.Lock()
 	defer c.Unlock()
 
@@ -106,18 +138,42 @@ func (c *cache) Truncate(ctx context.Context) error {
 }
 
 func (c *cache) Len(ctx context.Context) int {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		operationName:      "Len",
+		collectionName:     "*",
+		parameterizedQuery: "Len",
+		queryParameters:    nil,
+	})
+	defer span.Finish()
+
 	c.Lock()
 	defer c.Unlock()
 	return len(c.data)
 }
 
 func (c *cache) Size(ctx context.Context) uintptr {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		operationName:      "Size",
+		collectionName:     "*",
+		parameterizedQuery: "Size",
+		queryParameters:    nil,
+	})
+	defer span.Finish()
+
 	c.Lock()
 	defer c.Unlock()
 	return c.size
 }
 
 func (c *cache) Keys(ctx context.Context) []string {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		operationName:      "Keys",
+		collectionName:     "*",
+		parameterizedQuery: "Keys",
+		queryParameters:    nil,
+	})
+	defer span.Finish()
+
 	return c.queue
 }
 
