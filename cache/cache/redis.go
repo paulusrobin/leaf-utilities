@@ -21,6 +21,7 @@ type Redis interface {
 	HGet(ctx context.Context, key string, field string, response encoding.BinaryUnmarshaler) error
 	HSet(ctx context.Context, key string, field string, value interface{}) error
 	HSetWithExpiration(ctx context.Context, key string, field string, value interface{}, ttl time.Duration) error
+	MSet(ctx context.Context, data map[string]interface{}) error
 	MGet(ctx context.Context, key []string) ([]interface{}, error)
 
 	Remove(ctx context.Context, key string) error
