@@ -5,7 +5,8 @@ import (
 	"encoding"
 	"fmt"
 	"github.com/go-redis/redis"
-	"github.com/paulusrobin/leaf-utilities/cache/cache"
+	leafCache "github.com/paulusrobin/leaf-utilities/cache/cache"
+	"strings"
 	"time"
 )
 
@@ -49,6 +50,15 @@ func (c *goredis) Close() error {
 }
 
 func (c *goredis) Keys(ctx context.Context, pattern string) ([]string, error) {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "Keys",
+		collectionName:     "",
+		parameterizedQuery: "KEYS",
+		queryParameters:    nil,
+	})
+	defer span.Finish()
+
 	if err := check(c); err != nil {
 		return []string{}, err
 	}
@@ -56,6 +66,15 @@ func (c *goredis) Keys(ctx context.Context, pattern string) ([]string, error) {
 }
 
 func (c *goredis) Get(ctx context.Context, key string, data encoding.BinaryUnmarshaler) error {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "Get",
+		collectionName:     key,
+		parameterizedQuery: "GET $1",
+		queryParameters:    []interface{}{key},
+	})
+	defer span.Finish()
+
 	if err := check(c); err != nil {
 		return err
 	}
@@ -89,14 +108,41 @@ func (c *goredis) setWithExpiration(ctx context.Context, key string, value encod
 }
 
 func (c *goredis) Set(ctx context.Context, key string, value encoding.BinaryMarshaler) error {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "Set",
+		collectionName:     key,
+		parameterizedQuery: "SET $1 $2",
+		queryParameters:    []interface{}{key, value},
+	})
+	defer span.Finish()
+
 	return c.setWithExpiration(ctx, key, value, 0)
 }
 
 func (c *goredis) SetWithExpiration(ctx context.Context, key string, value encoding.BinaryMarshaler, duration time.Duration) error {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "SetWithExpiration",
+		collectionName:     key,
+		parameterizedQuery: "SET $1 $2; EXPIRE $3",
+		queryParameters:    []interface{}{key, value, duration},
+	})
+	defer span.Finish()
+
 	return c.setWithExpiration(ctx, key, value, duration)
 }
 
 func (c *goredis) HMGet(ctx context.Context, key string, fields ...string) ([]interface{}, error) {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "HMGet",
+		collectionName:     key,
+		parameterizedQuery: "HMGET $1 $2",
+		queryParameters:    []interface{}{key, fields},
+	})
+	defer span.Finish()
+
 	if err := check(c); err != nil {
 		return nil, err
 	}
@@ -119,6 +165,15 @@ func (c *goredis) HMSet(ctx context.Context, key string, value map[string]interf
 		redisQuery += fmt.Sprintf("%s %v ", k, v)
 	}
 
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "HMSet",
+		collectionName:     key,
+		parameterizedQuery: "HMSET $1 $2",
+		queryParameters:    []interface{}{key, strings.TrimSpace(redisQuery)},
+	})
+	defer span.Finish()
+
 	if err := check(c); err != nil {
 		return err
 	}
@@ -135,11 +190,16 @@ func (c *goredis) HMSetWithExpiration(ctx context.Context, key string, value map
 		redisQuery += fmt.Sprintf("%s %v ", k, v)
 	}
 
-	if err := check(c); err != nil {
-		return err
-	}
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "HMSetWithExpiration",
+		collectionName:     key,
+		parameterizedQuery: "HMSET $1 $2; EXPIRE $3",
+		queryParameters:    []interface{}{key, strings.TrimSpace(redisQuery), ttl},
+	})
+	defer span.Finish()
 
-	if _, err := c.r.HMSet(key, value).Result(); err != nil {
+	if err := c.HMSet(ctx, key, value); err != nil {
 		return err
 	}
 
@@ -151,6 +211,15 @@ func (c *goredis) HMSetWithExpiration(ctx context.Context, key string, value map
 }
 
 func (c *goredis) HGet(ctx context.Context, key, field string, response encoding.BinaryUnmarshaler) error {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "HGet",
+		collectionName:     key,
+		parameterizedQuery: "HGET $1 $2",
+		queryParameters:    []interface{}{key, field},
+	})
+	defer span.Finish()
+
 	if err := check(c); err != nil {
 		return err
 	}
@@ -172,6 +241,15 @@ func (c *goredis) HGet(ctx context.Context, key, field string, response encoding
 }
 
 func (c *goredis) HGetAll(ctx context.Context, key string) (map[string]string, error) {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "HGetAll",
+		collectionName:     key,
+		parameterizedQuery: "HGETALL $1",
+		queryParameters:    []interface{}{key},
+	})
+	defer span.Finish()
+
 	if err := check(c); err != nil {
 		return nil, err
 	}
@@ -189,6 +267,15 @@ func (c *goredis) HGetAll(ctx context.Context, key string) (map[string]string, e
 }
 
 func (c *goredis) HSet(ctx context.Context, key, field string, value interface{}) error {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "HSet",
+		collectionName:     key,
+		parameterizedQuery: "HSET $1 $2 $3",
+		queryParameters:    []interface{}{key, field, value},
+	})
+	defer span.Finish()
+
 	if err := check(c); err != nil {
 		return err
 	}
@@ -200,6 +287,15 @@ func (c *goredis) HSet(ctx context.Context, key, field string, value interface{}
 }
 
 func (c *goredis) HSetWithExpiration(ctx context.Context, key, field string, value interface{}, ttl time.Duration) error {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "HSetWithExpiration",
+		collectionName:     key,
+		parameterizedQuery: "HSET $1 $2 $3; EXPIRE $4",
+		queryParameters:    []interface{}{key, field, value, ttl},
+	})
+	defer span.Finish()
+
 	if err := check(c); err != nil {
 		return err
 	}
@@ -215,6 +311,19 @@ func (c *goredis) HSetWithExpiration(ctx context.Context, key, field string, val
 }
 
 func (c *goredis) MSet(ctx context.Context, data map[string]interface{}) error {
+	r := make([]string, 0, len(data))
+	for k := range data {
+		r = append(r, k)
+	}
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "MSet",
+		collectionName:     strings.Join(r, ","),
+		parameterizedQuery: "MSET $1",
+		queryParameters:    []interface{}{data},
+	})
+	defer span.Finish()
+
 	if err := check(c); err != nil {
 		return err
 	}
@@ -236,6 +345,15 @@ func (c *goredis) MSet(ctx context.Context, data map[string]interface{}) error {
 }
 
 func (c *goredis) MGet(ctx context.Context, key []string) ([]interface{}, error) {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "MGet",
+		collectionName:     strings.Join(key, ","),
+		parameterizedQuery: "MGET $1",
+		queryParameters:    []interface{}{strings.Join(key, " ")},
+	})
+	defer span.Finish()
+
 	if err := check(c); err != nil {
 		return nil, err
 	}
@@ -253,6 +371,15 @@ func (c *goredis) MGet(ctx context.Context, key []string) ([]interface{}, error)
 }
 
 func (c *goredis) Remove(ctx context.Context, key string) error {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "Remove",
+		collectionName:     key,
+		parameterizedQuery: "DEL $1",
+		queryParameters:    []interface{}{key},
+	})
+	defer span.Finish()
+
 	if err := check(c); err != nil {
 		return err
 	}
@@ -265,6 +392,15 @@ func (c *goredis) Remove(ctx context.Context, key string) error {
 }
 
 func (c *goredis) RemoveByPattern(ctx context.Context, pattern string, countPerLoop int64) error {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "RemoveByPattern",
+		collectionName:     pattern,
+		parameterizedQuery: "DEL FOREACH (KEYS $1)",
+		queryParameters:    []interface{}{pattern},
+	})
+	defer span.Finish()
+
 	if err := check(c); err != nil {
 		return err
 	}
@@ -291,6 +427,15 @@ func (c *goredis) RemoveByPattern(ctx context.Context, pattern string, countPerL
 }
 
 func (c *goredis) FlushDatabase(ctx context.Context) error {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "FlushDatabase",
+		collectionName:     "",
+		parameterizedQuery: "FLUSHDB",
+		queryParameters:    nil,
+	})
+	defer span.Finish()
+
 	if err := check(c); err != nil {
 		return err
 	}
@@ -303,6 +448,15 @@ func (c *goredis) FlushDatabase(ctx context.Context) error {
 }
 
 func (c *goredis) FlushAll(ctx context.Context) error {
+	span := startDataStoreSpan(&ctx, dataStoreParam{
+		db:                 c.cfg.dB,
+		operationName:      "FlushAll",
+		collectionName:     "",
+		parameterizedQuery: "FLUSHALL",
+		queryParameters:    nil,
+	})
+	defer span.Finish()
+
 	if err := check(c); err != nil {
 		return err
 	}
