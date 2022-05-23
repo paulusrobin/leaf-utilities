@@ -53,6 +53,7 @@ func New(serviceName string, v viper.Viper, webClient leafWebClient.Factory, log
 		logger:      logger,
 	}
 
+	ff.viper.SetConfigType(ff.option.featureFlagConfigurationType)
 	var err error
 	switch ff.option.featureFlagConfigurationSource {
 	case "", "file":
@@ -72,8 +73,10 @@ func New(serviceName string, v viper.Viper, webClient leafWebClient.Factory, log
 		return ff.handleBackupWhenError(err)
 	}
 
-	if err := ff.option.backupServer.Backup.Set(ff.serviceName+"."+featureFlagPrefix, ff.GetSettings()); err != nil {
-		ff.logger.Error(leafLogger.BuildMessage(context.TODO(), "failed to set backup feature flag", leafLogger.WithAttr("err", err.Error())))
+	if ff.option.backupServer.Backup != nil {
+		if err := ff.option.backupServer.Backup.Set(ff.serviceName+"."+featureFlagPrefix, ff.GetSettings()); err != nil {
+			ff.logger.Error(leafLogger.BuildMessage(context.TODO(), "failed to set backup feature flag", leafLogger.WithAttr("err", err.Error())))
+		}
 	}
 
 	return ff, nil
@@ -81,7 +84,6 @@ func New(serviceName string, v viper.Viper, webClient leafWebClient.Factory, log
 
 func (f *featureFlag) handleFileConfigSource() error {
 	configPath := f.option.featureFlagConfigurationPath
-	configType := f.option.featureFlagConfigurationType
 	if _, err := os.Stat(configPath); os.IsNotExist(err) {
 		return fmt.Errorf("config file %s does not exists\nerror: %+v", configPath, err)
 	}
@@ -94,13 +96,14 @@ func (f *featureFlag) handleFileConfigSource() error {
 
 	f.viper.SetConfigName(file)
 	f.viper.AddConfigPath(dir)
-	f.viper.SetConfigType(configType)
 
 	if err := f.viper.ReadInConfig(); err != nil {
 		return fmt.Errorf("failed to read %s file\nerror: %+v", configPath, err)
 	}
 
-	f.viper.WatchConfig()
+	if f.option.periodicUpdate.interval > 0 {
+		f.viper.WatchConfig()
+	}
 
 	return nil
 }
@@ -112,7 +115,6 @@ func (f *featureFlag) handleCustomConfigSource() error {
 		return fmt.Errorf("feature flag server and path is required for custom-http configuration source")
 	}
 
-	f.viper.SetConfigType(f.option.featureFlagConfigurationType)
 	if err := f.retrieveCustomConfig(); err != nil {
 		return fmt.Errorf("failed to read custom config\nerror: %+v", err)
 	}
@@ -159,7 +161,6 @@ func (f *featureFlag) retrieveCustomConfig() error {
 func (f *featureFlag) handleRemoteConfigSource() error {
 	configServer := f.option.featureFlagServer
 	configPath := f.option.featureFlagConfigurationPath
-	configType := f.option.featureFlagConfigurationType
 	configSource := f.option.featureFlagConfigurationSource
 	periodicUpdateInterval := f.option.periodicUpdate.interval
 	if configServer == "" || configPath == "" {
@@ -172,7 +173,6 @@ func (f *featureFlag) handleRemoteConfigSource() error {
 		}
 	}
 
-	f.viper.SetConfigType(configType)
 	if err := f.viper.ReadRemoteConfig(); err != nil {
 		return fmt.Errorf("failed to add remote provider\nerror: %+v", err)
 	}
@@ -198,9 +198,14 @@ func (f *featureFlag) handleRemoteConfigSource() error {
 
 func (f *featureFlag) handleBackupWhenError(err error) (*featureFlag, error) {
 	if f.option.backupServer.Backup != nil {
+		f.logger.Warn(leafLogger.BuildMessage(context.TODO(), "attempting to read feature flag from backup",
+			leafLogger.WithAttr("err", err.Error())))
 		data, err := f.option.backupServer.Backup.Get(f.serviceName + "." + featureFlagPrefix)
 		if err != nil {
 			return nil, fmt.Errorf("failed to get feature flag from redis\nerror: %+v", err.Error())
+		}
+		if len(data) == 0 {
+			return nil, fmt.Errorf("no data found on backup")
 		}
 		marshalled, err := json.Marshal(data)
 		if err != nil {
@@ -209,6 +214,8 @@ func (f *featureFlag) handleBackupWhenError(err error) (*featureFlag, error) {
 		if err := f.viper.ReadConfig(bytes.NewReader(marshalled)); err != nil {
 			return nil, fmt.Errorf("failed to set feature flag to runtime\nerror: %+v", err.Error())
 		}
+
+		return f, nil
 	}
 
 	return nil, err
