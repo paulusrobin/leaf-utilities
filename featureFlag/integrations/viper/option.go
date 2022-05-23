@@ -2,18 +2,20 @@ package leafViper
 
 import (
 	leafConfigType "github.com/paulusrobin/leaf-utilities/common/constants/configType"
+	leafFeatureFlag "github.com/paulusrobin/leaf-utilities/featureFlag/featureFlag"
 	"strings"
 	"time"
 )
 
 type (
-	ValidatorFunc func(data map[string]interface{}) error
-	Option        interface {
+	Option interface {
 		Apply(o *option)
 	}
-
 	periodicUpdate struct {
 		interval time.Duration
+	}
+	BackupServer struct {
+		Backup leafFeatureFlag.Backup
 	}
 	option struct {
 		featureFlagServer              string
@@ -21,8 +23,8 @@ type (
 		featureFlagConfigurationType   string
 		featureFlagConfigurationSource string
 		featureFlagTimeout             time.Duration
-		fnValidate                     ValidatorFunc
 		periodicUpdate                 periodicUpdate
+		backupServer                   BackupServer
 	}
 )
 
@@ -33,9 +35,11 @@ func defaultOption() option {
 		featureFlagConfigurationType:   leafConfigType.JSON,
 		featureFlagConfigurationSource: "",
 		featureFlagTimeout:             time.Second,
-		fnValidate:                     nil,
 		periodicUpdate: periodicUpdate{
 			interval: 0,
+		},
+		backupServer: BackupServer{
+			Backup: nil,
 		},
 	}
 }
@@ -90,16 +94,6 @@ func WithFeatureFlagTimeout(timeout time.Duration) Option {
 	return withFeatureFlagTimeout(timeout)
 }
 
-type withValidator ValidatorFunc
-
-func (w withValidator) Apply(o *option) {
-	o.fnValidate = ValidatorFunc(w)
-}
-
-func WithValidator(fn ValidatorFunc) Option {
-	return withValidator(fn)
-}
-
 type withPeriodicUpdateInterval time.Duration
 
 func (w withPeriodicUpdateInterval) Apply(o *option) {
@@ -108,4 +102,14 @@ func (w withPeriodicUpdateInterval) Apply(o *option) {
 
 func WithPeriodicUpdateInterval(interval time.Duration) Option {
 	return withPeriodicUpdateInterval(interval)
+}
+
+type withBackupServer BackupServer
+
+func (w withBackupServer) Apply(o *option) {
+	o.backupServer = BackupServer(w)
+}
+
+func WithBackupServer(backupServer BackupServer) Option {
+	return withBackupServer(backupServer)
 }

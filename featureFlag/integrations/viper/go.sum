@@ -148,12 +148,14 @@ github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd h1:TRLaZ9cD/w
 github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
 github.com/modern-go/reflect2 v1.0.2 h1:xBagoLtFs94CBntxluKeaWgTMpvLxC4ur3nMaC9Gz0M=
 github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjYzDa0/r8luk=
+github.com/paulusrobin/leaf-utilities/cache/cache v0.0.0-20220522072128-44fd4bccfb92 h1:sCo+BED0e5pVj8aXfU90vkgKmfW447/VHXYgRR0Ov7o=
+github.com/paulusrobin/leaf-utilities/cache/cache v0.0.0-20220522072128-44fd4bccfb92/go.mod h1:LArZckjk84ePKF/pAYGLYUi11gMdUYjW8T3256mcQBA=
 github.com/paulusrobin/leaf-utilities/common v0.0.0-20220520165046-b338be8b4c3b h1:9a9pQOmitvxLXRt+dkMmv9cmgXKVp1DI6ZZWvBmA+uk=
 github.com/paulusrobin/leaf-utilities/common v0.0.0-20220520165046-b338be8b4c3b/go.mod h1:Ps7CWTGEea6K49J2P+BIll1HW8uJckVqGBG6nv4dA5A=
 github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220413144204-972ab9e3b19d h1:LWpKebX3UrFOYtg6EUlG/vDlWTlcZiKJLFrWvapcXlY=
 github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220413144204-972ab9e3b19d/go.mod h1:h8KYl7wYSOivdH0FXKvfKz+c/7ID0z4JYyX1XTnvAMU=
-github.com/paulusrobin/leaf-utilities/featureFlag/featureFlag v0.0.0-20220521061845-ec45dbfa4267 h1:Gss4+07By4Hrn4Fqqjg9RrJ0JhGRvFlx8yk6xw9sDpU=
-github.com/paulusrobin/leaf-utilities/featureFlag/featureFlag v0.0.0-20220521061845-ec45dbfa4267/go.mod h1:FKfvoEwzr7FdfIwrvzGcE2GL34RtycrGsKlOrbQpio8=
+github.com/paulusrobin/leaf-utilities/featureFlag/featureFlag v0.0.0-20220523050123-964d9cbd1487 h1:FwKZCbuyfSvwQyWjfWEnas6m89t/cn+WPzqUfIWpn34=
+github.com/paulusrobin/leaf-utilities/featureFlag/featureFlag v0.0.0-20220523050123-964d9cbd1487/go.mod h1:FKfvoEwzr7FdfIwrvzGcE2GL34RtycrGsKlOrbQpio8=
 github.com/paulusrobin/leaf-utilities/logger/logger v0.0.0-20220521061845-ec45dbfa4267 h1:yk8FkSlXDQ7FjxmGArQPUFX8Mwzyvs5fKtn3W9Jtye0=
 github.com/paulusrobin/leaf-utilities/logger/logger v0.0.0-20220521061845-ec45dbfa4267/go.mod h1:C+36pHO/3zJtPvQO5ZaAucMzI3JxNibPUqsV90wJiCM=
 github.com/paulusrobin/leaf-utilities/mandatory v0.0.0-20220420070336-2df28f149cda h1:3lzNPpE2hPBDytDPTP+1JLHe/pwiQnc4hOT6kKi5Tw8=

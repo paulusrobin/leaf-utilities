@@ -3,8 +3,10 @@ module github.com/paulusrobin/leaf-utilities/featureFlag/integrations/viper
 go 1.18
 
 require (
+	github.com/paulusrobin/leaf-utilities/cache/cache v0.0.0-20220522072128-44fd4bccfb92
 	github.com/paulusrobin/leaf-utilities/common v0.0.0-20220520165046-b338be8b4c3b
-	github.com/paulusrobin/leaf-utilities/featureFlag/featureFlag v0.0.0-20220521061845-ec45dbfa4267
+	github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220413144204-972ab9e3b19d
+	github.com/paulusrobin/leaf-utilities/featureFlag/featureFlag v0.0.0-20220523050123-964d9cbd1487
 	github.com/paulusrobin/leaf-utilities/logger/logger v0.0.0-20220521061845-ec45dbfa4267
 	github.com/paulusrobin/leaf-utilities/webClient/webClient v0.0.0-20220521061845-ec45dbfa4267
 	github.com/spf13/viper v1.11.0
@@ -21,7 +23,6 @@ require (
 	github.com/mitchellh/mapstructure v1.4.3 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
-	github.com/paulusrobin/leaf-utilities/encoding/json v0.0.0-20220413144204-972ab9e3b19d // indirect
 	github.com/paulusrobin/leaf-utilities/mandatory v0.0.0-20220420070336-2df28f149cda // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.0-beta.8 // indirect

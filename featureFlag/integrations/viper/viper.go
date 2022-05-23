@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"github.com/paulusrobin/leaf-utilities/encoding/json"
 	leafFeatureFlag "github.com/paulusrobin/leaf-utilities/featureFlag/featureFlag"
 	leafLogger "github.com/paulusrobin/leaf-utilities/logger/logger"
 	leafWebClient "github.com/paulusrobin/leaf-utilities/webClient/webClient"
@@ -14,12 +15,15 @@ import (
 	"time"
 )
 
+const featureFlagPrefix = "feature-flag"
+
 type (
 	featureFlag struct {
-		viper     viper.Viper
-		webClient leafWebClient.Factory
-		option    option
-		logger    leafLogger.Logger
+		serviceName string
+		viper       viper.Viper
+		webClient   leafWebClient.Factory
+		option      option
+		logger      leafLogger.Logger
 	}
 )
 
@@ -35,17 +39,18 @@ func (f featureFlag) Get(key string) interface{} {
 	return f.viper.Get(key)
 }
 
-func New(v viper.Viper, webClient leafWebClient.Factory, logger leafLogger.Logger, opts ...Option) (leafFeatureFlag.FeatureFlag, error) {
+func New(serviceName string, v viper.Viper, webClient leafWebClient.Factory, logger leafLogger.Logger, opts ...Option) (leafFeatureFlag.FeatureFlag, error) {
 	o := defaultOption()
 	for _, opt := range opts {
 		opt.Apply(&o)
 	}
 
 	ff := &featureFlag{
-		viper:     v,
-		webClient: webClient,
-		option:    o,
-		logger:    logger,
+		serviceName: serviceName,
+		viper:       v,
+		webClient:   webClient,
+		option:      o,
+		logger:      logger,
 	}
 
 	var err error
@@ -60,13 +65,17 @@ func New(v viper.Viper, webClient leafWebClient.Factory, logger leafLogger.Logge
 		err = ff.handleRemoteConfigSource()
 		break
 	default:
-		err = fmt.Errorf("unsupported feature flag source, only [file, custom-http, etcd, consul] is supported")
-		break
+		return nil, fmt.Errorf("unsupported feature flag source, only [file, custom-http, etcd, consul] is supported")
 	}
 
 	if err != nil {
-		return nil, err
+		return ff.handleBackupWhenError(err)
 	}
+
+	if err := ff.option.backupServer.Backup.Set(ff.serviceName+"."+featureFlagPrefix, ff.GetSettings()); err != nil {
+		ff.logger.Error(leafLogger.BuildMessage(context.TODO(), "failed to set backup feature flag", leafLogger.WithAttr("err", err.Error())))
+	}
+
 	return ff, nil
 }
 
@@ -114,7 +123,7 @@ func (f *featureFlag) handleCustomConfigSource() error {
 				select {
 				case <-time.Tick(periodicUpdateInterval):
 					if err := f.retrieveCustomConfig(); err != nil {
-						f.logger.Error(leafLogger.BuildMessage(context.Background(), "failed to reload custom remote config",
+						f.logger.Error(leafLogger.BuildMessage(context.TODO(), "failed to reload custom remote config",
 							leafLogger.WithAttr("err", err.Error())))
 					}
 				}
@@ -130,7 +139,7 @@ func (f *featureFlag) retrieveCustomConfig() error {
 	header := http.Header{
 		"Content-type": []string{"application/json"},
 	}
-	response, err := webClient.Get(context.Background(), f.option.featureFlagServer+f.option.featureFlagConfigurationPath, header, nil)
+	response, err := webClient.Get(context.TODO(), f.option.featureFlagServer+f.option.featureFlagConfigurationPath, header, nil)
 	if err != nil {
 		return fmt.Errorf("failed to get feature flag response\nerror: %+v", err)
 	}
@@ -175,7 +184,7 @@ func (f *featureFlag) handleRemoteConfigSource() error {
 				case <-time.Tick(periodicUpdateInterval):
 					err := f.viper.WatchRemoteConfig()
 					if err != nil {
-						f.logger.Error(leafLogger.BuildMessage(context.Background(), "failed to reload remote config",
+						f.logger.Error(leafLogger.BuildMessage(context.TODO(), "failed to reload remote config",
 							leafLogger.WithAttr("err", err.Error())))
 						continue
 					}
@@ -185,4 +194,22 @@ func (f *featureFlag) handleRemoteConfigSource() error {
 	}
 
 	return nil
+}
+
+func (f *featureFlag) handleBackupWhenError(err error) (*featureFlag, error) {
+	if f.option.backupServer.Backup != nil {
+		data, err := f.option.backupServer.Backup.Get(f.serviceName + "." + featureFlagPrefix)
+		if err != nil {
+			return nil, fmt.Errorf("failed to get feature flag from redis\nerror: %+v", err.Error())
+		}
+		marshalled, err := json.Marshal(data)
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal feature flag from redis\nerror: %+v", err.Error())
+		}
+		if err := f.viper.ReadConfig(bytes.NewReader(marshalled)); err != nil {
+			return nil, fmt.Errorf("failed to set feature flag to runtime\nerror: %+v", err.Error())
+		}
+	}
+
+	return nil, err
 }
